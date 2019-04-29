@@ -1,0 +1,130 @@
+<%= form_with(model: rounds, local: true, class: "form") do |form| %>
+
+<div class="input-group input-has-value">
+    <label class="col-md-3 col-form-label" for="l10">งวดวันที่ :</label>
+  <input type="text" class="form-control datepicker" placeholder="งวดวันที่">
+  <span class="input-group-addon">
+    <i class="list-icon material-icons">date_range</i>
+  </span>
+</div>
+
+<div class="form-group mr-b-40 input-has-value">
+
+    <label class="col-md-3 col-form-label" for="l10">วันเวลาที่เปิดรับแทง :</label>
+  <input
+    class="form-control daterange"
+    placeholder="กรุณาเลือกวันเวลาที่เปิดรับแทง"
+    data-plugin-options="{&quot;timePicker&quot;: true, &quot;opens&quot;: &quot;right&quot;, &quot;timePicker24Hour&quot;: true, &quot;timePickerIncrement&quot;: 15, &quot;locale&quot;: { &quot;format&quot;: &quot;DD/MM/YYYY h:mm A&quot; }}">
+</div>
+
+<div class="form-group row">
+  <label class="col-md-3 col-form-label" for="l10">ความเสี่ยงสูงสุด :</label>
+  <div class="col-md-9">
+    <div class="input-group">
+        <%= form.number_field "rounds", id: :value, autofocus: true, placeholder: "ความเสี่ยงสูงสุด", class:"form-control", step: :any %>
+    </div>
+  </div>
+</div>
+
+
+<div class="form-group row">
+  <label class="col-md-3 col-form-label" for="l10"> สามตัวบน:</label>
+  <div class="col-md-3">
+    <div class="input-group">
+        <%= form.number_field "สามตัวบน", id: :value, autofocus: true, placeholder: "750", class:"form-control", step: :any %>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="input-group">
+        <%= form.number_field "เลขที่ออก", id: :value, autofocus: true, placeholder: "750", class:"form-control", step: :any %>
+    </div>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label class="col-md-3 col-form-label" for="l10"> สามตัวโต๊ด:</label>
+  <div class="col-md-9">
+    <div class="input-group">
+        <%= form.number_field "สามตัวโต๊ด", id: :value, autofocus: true, placeholder: "120", class:"form-control", step: :any %>
+    </div>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label class="col-md-3 col-form-label" for="l10"> สามตัวล่าง:</label>
+  <div class="col-md-9">
+    <div class="input-group">
+        <%= form.number_field "สามตัวล่าง", id: :value, autofocus: true, placeholder: "120", class:"form-control", step: :any %>
+    </div>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label class="col-md-3 col-form-label" for="l10"> สามตัวหน้า:</label>
+  <div class="col-md-9">
+    <div class="input-group">
+        <%= form.number_field "สามตัวล่าง", id: :value, autofocus: true, placeholder: "120", class:"form-control", step: :any %>
+    </div>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label class="col-md-3 col-form-label" for="l10"> สองตัวบน:</label>
+  <div class="col-md-9">
+    <div class="input-group">
+        <%= form.number_field "สองตัวบน", id: :value, autofocus: true, placeholder: "120", class:"form-control", step: :any %>
+    </div>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label class="col-md-3 col-form-label" for="l10"> สองตัวล่าง:</label>
+  <div class="col-md-9">
+    <div class="input-group">
+        <%= form.number_field "สองตัวล่าง", id: :value, autofocus: true, placeholder: "120", class:"form-control", step: :any %>
+    </div>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label class="col-md-3 col-form-label" for="l10"> วิ่งบน:</label>
+  <div class="col-md-9">
+    <div class="input-group">
+        <%= form.number_field "วิ่งบน", id: :value, autofocus: true, placeholder: "120", class:"form-control", step: :any %>
+    </div>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label class="col-md-3 col-form-label" for="l10"> วิ่งล่าง:</label>
+  <div class="col-md-9">
+    <div class="input-group">
+        <%= form.number_field "วิ่งล่าง", id: :value, autofocus: true, placeholder: "120", class:"form-control", step: :any %>
+    </div>
+  </div>
+</div>
+
+
+<h3>เลขอั้น</h3>
+
+<div class="form-group row">
+  <div class="col-md-3">
+    <div class="input-group">
+        <%= form.number_field "เลข", id: :value, autofocus: true, placeholder: "990", class:"form-control", step: :any %>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="input-group">
+        <%= form.number_field "เลข", id: :value, autofocus: true, placeholder: "150", class:"form-control", step: :any %>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="input-group">
+        <%= form.number_field "เลข", id: :value, autofocus: true, placeholder: "200,000", class:"form-control", step: :any %>
+    </div>
+  </div>
+</div>
+
+
+
+<% end %>

@@ -1,0 +1,173 @@
+<main class="main-wrapper clearfix">
+  <div class="widget-list">
+    <div class="row mr-b-0">
+      <div class="col-md-12">
+        <div class="widget-bg">
+          <div class="widget-body clearfix">
+            <h4>หวยลาว
+              <small>งวดวันที่
+                <span id="date_laos"></span>
+              </small>
+              <input type="hidden" id="round_laos_date" value="<%= @round[0].result_date %>">
+            </h4>
+            <div id="parameters">
+              <input id="round_id" value="<%= @round[0]._id %>" type="hidden">
+              <script>
+                var payout = "<%= @round[0]['payout'].to_json %>";
+                payout = JSON.parse(payout.replace(/&quot;/g, '\"'));
+
+                var limit = "<%= @round[0]['limit'].to_json %>";
+                limit = JSON.parse(limit.replace(/&quot;/g, '\"'));
+
+                console.log(limit);
+              </script>
+            </div>
+            <div class="tabs tabs-bordered">
+              <ul class="nav nav-tabs nav-justified">
+                <li class="nav-item mx-auto">
+                  <a id="tab-rule" class="nav-link active" href="#panel-rule" data-toggle="tab" aria-expanded="true">กติกา</a>
+                </li>
+                <li class="nav-item mx-auto">
+                  <a id="tab-3digits" class="nav-link" href="#panel-3digits" data-toggle="tab" aria-expanded="false">สามตัว</a>
+                </li>
+                <li class="nav-item mx-auto">
+                  <a id="tab-2digits" class="nav-link" href="#panel-2digits" data-toggle="tab" aria-expanded="false">สองตัว</a>
+                </li>
+                <li class="nav-item mx-auto">
+                  <a id="tab-rundigits" class="nav-link" href="#panel-rundigits" data-toggle="tab" aria-expanded="false">เลขวิ่ง</a>
+                </li>
+              </ul>
+              <!-- /.nav-tabs -->
+
+              <!-- /.tab-content -->
+            </div>
+            <!-- /.tabs -->
+          </div>
+        </div>
+        <!-- /.widget-bg -->
+      </div>
+
+    </div>
+    <!-- /.row -->
+  </div>
+
+  <div class="widget-list" id="widget-list">
+    <div class="row">
+      <div class="col-md-8 col-sm-6 cold- widget-holder">
+        <div class="widget-bg">
+          <div class="widget-body clearfix">
+            <div id="panel" class="tab-content">
+              <div class="tab-pane active" id="panel-rule" aria-expanded="true">
+                <div>AAAAAA</div>
+
+              </div>
+              <div class="tab-pane" id="panel-3digits" aria-expanded="false">
+
+                <%= render '3digits', request: @request, :locals => {:current_user => current_user} %>
+              </div>
+              <div class="tab-pane" id="panel-2digits" aria-expanded="false">
+
+                <%= render '2digits', request: @request, :locals => {:current_user => current_user} %>
+              </div>
+              <div class="tab-pane" id="panel-rundigits" aria-expanded="false">
+                <p>DDD</p>
+
+              </div>
+            </div>
+            <!-- /.tabs -->
+          </div>
+          <!-- /.widget-body -->
+        </div>
+        <!-- /.widget-bg -->
+      </div>
+
+      <div class="col-md-4 col-sm-6 widget-holder">
+        <div class="widget-bg">
+          <h5>รายการแทง</h5>
+          <div id="bet_list">
+            <div class="widget-body clearfix">
+              <form class="form-material">
+                <%= csrf_meta_tag %>
+                <% @bet_types.each do |v| %>
+                <div id="bet_list_<%= v['code'] %>">
+                  <h6 class="box-title"><%= v['name'] %></h6>
+                  <table id="bet_list_table_<%= v['code'] %>" class="table table-responsive table-bet-list">
+                    <thead>
+                      <tr class="bg-primary text-inverse">
+                        <th style="width:10%">เลข</th>
+                        <th style="width:40%" class="text-center">ราคา</th>
+                        <th style="width:35%" class="text-center">ทายถูกได้</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody></tbody>
+                  </table>
+                  <small><%= v['name'] %>: แทงขั้นต่ำ
+                    <%= @round[0]['payout'][v['code']]['minbet'] %>
+                    บาท, สูงสุด
+                    <%= @round[0]['payout'][v['code']]['maxbet'] %>
+                    บาท</small><br/>
+
+                </div>
+                <% end %>
+
+              </form>
+              <hr/>
+              <div id="bet_sum">
+                <h5>ยอดรวม: 0 บาท</h5>
+              </div>
+              <div id="user_balance">
+                <small>จำนวนเงินในบัญชีของคุณ:
+                  <%= number_to_currency( current_user.money720808, unit: "฿", precision: 2 ) %>
+                  บาท</small>
+              </div>
+              <div class="checkbox checkbox-primary">
+                <label class="">
+                  <input type="checkbox" id="accept-confirm">
+                  <span class="label-text">
+                    <small>ฉันตรวจสอบรายการและยอมรับเงื่อนไขแล้ว</small>
+                  </span>
+                </label>
+              </div>
+              <button id="submit_bet" class="btn btn-block btn-rounded btn-color-scheme">ยืนยันการแทง</button>
+              <div class="text-center">
+                <small><%= link_to 'เงื่อนไขและข้อตกลงในการใช้บริการ' %></small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal modal-color-scheme fade bs-modal-lg-color-scheme"  id="transactionSummary" role="dialog" aria-labelledby="transactionSummary" aria-hidden="true" style="display: none">
+        <div class="modal-dialog modal-lg bs-modal-lg-color-scheme">
+          <div class="modal-content">
+            <div class="modal-header text-inverse">
+              <button type="button" class="close"  onclick="location.reload();" aria-hidden="true">×</button>
+              <h5 class="modal-title" id="myLargeModalLabel">ได้รับรายการแทงเรียบร้อย</h5>
+            </div>
+            <div class="modal-body">
+              <div class="swal2-icon swal2-success swal2-animate-success-icon" style="display: block;"><div class="swal2-success-circular-line-left" style="background: rgb(255, 255, 255);"></div><span class="swal2-success-line-tip swal2-animate-success-line-tip"></span> <span class="swal2-success-line-long swal2-animate-success-line-long"></span><div class="swal2-success-ring"></div> <div class="swal2-success-fix" style="background: rgb(255, 255, 255);"></div><div class="swal2-success-circular-line-right" style="background: rgb(255, 255, 255);"></div></div>
+              <h4 class="text-center">สรุปรายการ</h4>
+              <div id="transactionSummarycontent">
+
+              </div>
+            </div>
+            <div class="modal-footer">
+
+              <button type="button" class="btn btn-danger btn-rounded ripple text-left" data-dismiss="modal" onclick="location.reload();">ปิดหน้าต่าง</button>
+              <a href="#" class="btn btn-info btn-rounded ripple text-left">ดูรายการแทงทั้งหมด</a>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal -->
+
+    </div>
+    <!-- /.row -->
+  </div>
+
+</main>
+
+<script src="<%= root_url%>assets/js/products_laos.js"></script>

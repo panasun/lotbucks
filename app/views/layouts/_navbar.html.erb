@@ -1,0 +1,229 @@
+<!-- HEADER & TOP NAVIGATION -->
+<nav class="navbar">
+  <!-- Logo Area -->
+  <div class="navbar-header">
+    <a href="<%= root_url %>" class="navbar-brand text-center">
+      <img class="logo-expand" alt="" src="<%= root_url%>assets/images/logo-expand.png">
+      <img class="logo-collapse" alt="" src="<%= root_url%>assets/images/logo-collapse.png">
+      <!-- <p>OSCAR</p> -->
+    </a>
+  </div>
+  <!-- /.navbar-header -->
+  <!-- Left Menu & Sidebar Toggle -->
+  <ul class="nav navbar-nav">
+    <li class="sidebar-toggle">
+      <a href="javascript:void(0)" class="ripple">
+        <i class="material-icons list-icon">menu</i>
+      </a>
+    </li>
+  </ul>
+  <!-- /.navbar-left -->
+
+  <div class="spacer"></div>
+
+  <!-- /.navbar-right -->
+  <ul class="nav navbar-nav" id="nav-user">
+    <% if user_signed_in? %>
+    <li>
+      <div>
+
+        <% if user_signed_in? && current_user.username == "168899" %>
+
+        <span>เบอร์:</span>
+        <%= current_user.username %><br>
+
+      ฝาก: <span class="badge badge-pill bg-primary" id="wait_deposit"></span>
+      ถอน: <span class="badge badge-pill bg-primary" id="wait_withdraw"></span>
+
+      <% else %>
+        <span>เบอร์:</span>
+        <%= current_user.username %><br>
+        <span>เงิน:</span>
+        <%=  number_to_currency( current_user.money720808, unit: "฿", precision: 2 ) %>
+        <input id="user_money" value="<%= current_user.money720808 %>" type="hidden">
+        <% end %>
+      </div>
+
+    </li>
+  <% else %>
+    <li>
+      <a href="<%= root_url %>users/sign_in">เข้าสู่ระบบ</a>
+    </li>
+    <% end %>
+  </ul>
+  <!-- /.navbar-right -->
+</nav>
+<!-- /.navbar -->
+<div class="content-wrapper">
+  <!-- SIDEBAR -->
+  <!-- Begin Admin Panel -->
+  <% if user_signed_in? && current_user.username == "168899" %>
+
+  <aside class="site-sidebar clearfix">
+    <nav class="sidebar-nav">
+      <ul class="nav in side-menu">
+        <li class="menu-item">
+          <a href="<%= root_path %>">
+            <i class="list-icon material-icons">home</i>
+            <span class="hide-menu">หน้าหลัก</span>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="<%= admin_requests_path %>">
+            <i class="list-icon material-icons">shopping_cart</i>
+            <span class="hide-menu">รายการฝาก/ถอน</span>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="<%= rounds_path %>">
+            <i class="list-icon material-icons">payment</i>
+            <span class="hide-menu">รอบหวยทั้งหมด</span>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="<%= rounds_path %>/new">
+            <i class="list-icon material-icons">lightbulb_outline</i>
+            <span class="hide-menu">เพิ่มรอบหวย</span>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="<%= bet_types_path %>">
+            <i class="list-icon material-icons">help_outline</i>
+            <span class="hide-menu">ตารางการจ่าย</span>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="<%= admin_users_path %>">
+            <i class="list-icon material-icons">help_outline</i>
+            <span class="hide-menu">ผู้ใช้งานทั้งหมด</span>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="<%= destroy_user_session_path %>" method="delete">
+            <i class="list-icon material-icons">face</i>
+            <span class="hide-menu">ออกจากระบบ</span>
+          </a>
+        </li>
+      </ul>
+      </nav>
+      <!-- /.sidebar-nav -->
+    </aside>
+    <!-- end admin panel -->
+  <% else %>
+    <aside class="site-sidebar clearfix">
+      <nav class="sidebar-nav">
+        <ul class="nav in side-menu">
+          <li class="menu-item">
+            <a href="<%= root_path %>">
+              <i class="list-icon material-icons">home</i>
+              <span class="hide-menu">หน้าหลัก</span>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="<%= root_path %>">
+              <i class="list-icon material-icons">shopping_cart</i>
+              <span class="hide-menu">ซื้อหวย</span>
+            </a>
+              <ul class="list-unstyled sub-menu">
+                <li>
+                  <a href="<%= root_path %>products/laos">หวยลาว</a>
+                </li>
+                <li>
+                  <a href="<%= root_path %>products/thai">หวยไทย</a>
+                </li>
+
+              </ul>
+
+          </li>
+          <li class="menu-item">
+            <a href="<%= transactions_path %>">
+              <i class="list-icon material-icons">receipt</i>
+              <span class="hide-menu">รายการแทง</span>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="<%= requests_path %>">
+              <i class="list-icon material-icons">payment</i>
+              <span class="hide-menu">เติมเงิน</span>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="<%= pages_odd_table_path %>">
+              <i class="list-icon material-icons">trending_up</i>
+              <span class="hide-menu">อัตราจ่าย</span>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="<%= pages_result_path %>">
+              <i class="list-icon material-icons">lightbulb_outline</i>
+              <span class="hide-menu">เลขที่ออก</span>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="<%= pages_faq_path %>">
+              <i class="list-icon material-icons">help_outline</i>
+              <span class="hide-menu">คำถามที่พบบ่อย</span>
+            </a>
+          </li>
+
+          <% if 1 == 1 %>
+          <li class="menu-item-has-children">
+            <a href="javascript:void(0);">
+              <i class="list-icon material-icons">person</i>
+              <span class="hide-menu">ผู้ใช้งาน</span>
+            </a>
+            <ul class="list-unstyled sub-menu">
+              <% if user_signed_in? %>
+              <li>
+                <%= link_to 'แก้ไขข้อมูล', edit_user_registration_path %>
+              </li>
+              <li>
+                <%= link_to 'ออกจากระบบ', destroy_user_session_path, method: :delete %>
+              </li>
+            <% else %>
+              <li>
+                <a href="<%= root_url %>users/sign_in">เข้าสู่ระบบ</a>
+              </li>
+              <li>
+                <%= link_to 'สมัครสมาชิก', new_user_registration_path %>
+              </li>
+              <% end %>
+            </ul>
+          </li>
+
+          <% end %>
+          <% if user_signed_in? && current_user.username == "168899" %>
+          <li class="menu-item-has-children">
+            <a href="javascript:void(0);">
+              <i class="list-icon material-icons">face</i>
+              <span class="hide-menu">ผู้ดูแลระบบ</span>
+            </a>
+            <ul class="list-unstyled sub-menu">
+              <li>
+                <%= link_to 'รายการฝาก/ถอนเงิน', admin_requests_path %>
+              </li>
+              <li>
+                <%= link_to 'รอบหวยทั้งหมด', rounds_path %>
+              </li>
+              <li>
+                <%= link_to 'เพิ่มรอบหวย', (rounds_path+"/new") %>
+              </li>
+              <li>
+                <%= link_to 'ตารางการจ่าย', bet_types_path %>
+              </li>
+              <li>
+                <%= link_to 'ออกจากระบบ', destroy_user_session_path, method: :delete %>
+              </li>
+
+            </ul>
+          </li>
+          <% end %>
+        </ul>
+        <!-- /.side-menu -->
+      </nav>
+      <!-- /.sidebar-nav -->
+    </aside>
+    <!-- /.site-sidebar -->
+
+    <% end %>
+  </div>

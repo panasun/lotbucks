@@ -1,0 +1,59 @@
+<main class="main-wrapper clearfix">
+
+  <div class="widget-list">
+    <div class="row">
+      <div class="col-md-3 widget-holder"></div>
+      <div class="col-md-6 widget-holder">
+        <div class="widget-bg">
+          <div class="widget-body clearfix">
+            <h5 class="box-title mr-b-0">เข้าสู่ระบบ</h5>
+            <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="l10">เบอร์โทรศัพท์ :</label>
+              <div class="col-md-9">
+                <div class="input-group">
+                  <%= f.telephone_field :username, autofocus: true, placeholder: "", class:"form-control" %>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="l0">รหัสผ่าน :</label>
+              <div class="col-md-9">
+                <%= f.password_field :password, autocomplete: "off", placeholder: "", class: "form-control" %>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="l0"></label>
+              <div class="col-md-9">
+
+                <% if devise_mapping.rememberable? -%>
+                <div class="field">
+                  <%= f.check_box :remember_me %>
+                  <%= f.label "จำการเข้าระบบ" %> |
+                  <%= link_to 'สมัครสมาชิก', new_user_registration_path %>
+                </div>
+                <% end -%>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <div class="form-group row">
+                <div class="col-md-9 ml-md-auto btn-list">
+                  <%= f.submit "เข้าสู่ระบบ", class: "btn btn-primary btn-rounded"%>
+                </div>
+              </div>
+            </div>
+
+            <% end %>
+          </div>
+          <!-- /.widget-body -->
+        </div>
+        <!-- /.widget-bg -->
+      </div>
+      <!-- /.widget-holder -->
+
+    </div>
+    <!-- /.row -->
+  </div>
+
+</main>

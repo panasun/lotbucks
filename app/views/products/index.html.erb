@@ -1,0 +1,132 @@
+<main class="main-wrapper clearfix">
+  <!-- Page Title Area -->
+   <div class="row page-title clearfix">
+       <div class="page-title-left">
+           <h5 class="mr-0 mr-r-5">แทงหวย</h5>
+
+       </div>
+       <!-- /.page-title-left -->
+       <div class="page-title-right d-inline-flex">
+         ซื้อหวยวันนี้ รวยทันที !
+       </div>
+       <!-- /.page-title-right -->
+   </div>
+   <!-- /.page-title -->
+
+  <div class="widget-list">
+    <div class="text-center mr-b-20">
+      <h5>Lot1688.com เจ้ามือหวยรายใหญ่สุดในประเทศ จ่ายจริง จ่ายเร็ว ราคาดีที่สุด แทงไม่ถูกมีส่วนลด !</h5>
+    </div>
+    <div class="row">
+      <div class="col-lg-3  widget-holder"></div>
+      <div class="col-lg-3 widget-holder">
+        <div class="widget-bg">
+          <% if @round_laos %>
+          <div class="widget-body clearfix">
+            <div class="card-user-info-widget">
+
+              <div class="img-caption text-center">
+                <h4 class="fw-700">หวยลาว
+                  <span class="badge badge-primary badge-pill fs-12 align-middle">ยอดฮิต</span>
+                </h4>
+                <h5 class="fw-100">งวดวันที่ <span id="date_laos"></span></h5>
+
+                <input type="hidden" id="round_laos_date" value="<%= @round_laos['result_date'] %>">
+                <input type="hidden" id="round_laos_time" value="<%= @round_laos['result_time'] %>">
+
+                <p class="text-muted">เหลือเวลาอีก</p>
+                <% if @round_laos['status'] == "open" %>
+                <h4 class="text-danger" id="round_laos_countdown"></h4>
+                <% else %>
+                <h4 class="text-muted">00 : 00 : 00</h4>
+                <% end %>
+              </div>
+              <div class="caption-btn pd-lr-20 mr-t-30" id="goto_laos_button">
+                <% if @round_laos['status'] == "open" %>
+                <a href="<%= products_laos_path %>" class="btn btn-block btn-rounded btn-info">ซื้อหวย</a>
+                <% else %>
+                <button class="btn btn-block btn-rounded btn-default" disabled="disabled">ปิดรับแทง</button>
+                <% end %>
+
+              </div>
+              <section class="mr-t-30">
+                <ul class="list-unstyled row padded-reverse text-center followers-details-list">
+
+                  <li class="col-12">
+                    <h5 class="mb-0 fw-100">ปิดรับ</h5>
+                    <p class="text-muted"><span id="close_date_laos"></span> <%= @round_laos['result_time'] %> น.</p>
+                  </li>
+                </ul>
+              </section>
+            </div>
+            <!-- /.card-user-info-widget -->
+          </div>
+          <% end %>
+          <!-- /.widget-body -->
+        </div>
+      </div>
+
+      <div class="col-lg-3 widget-holder">
+        <div class="widget-bg">
+          <% if @round_thai %>
+          <div class="widget-body clearfix">
+            <div class="card-user-info-widget">
+
+              <div class="img-caption text-center">
+                <h4 class="fw-700">หวยไทย
+                  <span class="badge badge-info badge-pill fs-12 align-middle">รวยรวย</span>
+                </h4>
+                <h5 class="fw-100">งวดวันที่ <span id="date_thai"></span></h5>
+                <input type="hidden" id="round_thai_date" value="<%= @round_thai['result_date'] %>">
+                <input type="hidden" id="round_thai_time" value="<%= @round_thai['result_time'] %>">
+                <p class="text-muted">เหลือเวลาอีก</p>
+                <% if @round_thai['status'] == "open" %>
+                <h4 class="text-danger" id="round_thai_countdown"></h4>
+                <% else %>
+                <h4 class="text-muted">00 : 00 : 00</h4>
+                <% end %>
+              </div>
+              <div class="caption-btn pd-lr-20 mr-t-30" id="goto_thai_button">
+                <% if @round_thai['status'] == "open" %>
+                <a href="<%= products_thai_path %>" class="btn btn-block btn-rounded btn-info">ซื้อหวย</a>
+                <% else %>
+                <button class="btn btn-block btn-rounded btn-default" disabled="disabled">ปิดรับแทง</button>
+                <% end %>
+
+              </div>
+              <section class="mr-t-30">
+                <ul class="list-unstyled row padded-reverse text-center followers-details-list">
+                  <li class="col-12">
+                    <h5 class="mb-0 fw-100">ปิดรับ</h5>
+                    <p class="text-muted"><span id="close_date_thai"></span> <%= @round_thai['result_time'] %> น.</p>
+                  </li>
+                </ul>
+              </section>
+            </div>
+            <!-- /.card-user-info-widget -->
+          </div>
+          <% end %>
+          <!-- /.widget-body -->
+        </div>
+      </div>
+    </div>
+    <!-- /.row -->
+  </div>
+
+
+</main>
+
+<script  type='text/javascript' src="<%= root_url%>assets/js/products.js"></script>
+
+<% if user_signed_in? == false %>
+<nav id="footer_login" class="navbar navbar-default navbar-fixed-bottom" style="position: fixed; bottom: 0; opacity: 0.90;">
+  <div class="col-lg-6 col-sm-6 col-6 mr-t-20">
+    <button onclick="location.href='<%= root_url %>users/sign_up'" class="btn btn-block btn-default">สมัครสมาชิก</button>
+  </div>
+  <div class="col-lg-6 col-sm-6 col-6 mr-t-20">
+    <button onclick="location.href='<%= root_url %>users/sign_in'" class="btn btn-block btn-primary">เข้าสู่ระบบ</button>
+  </div>
+  <button onclick="hideFooterLogin();" type="button" class="close" aria-hidden="true" style="position: absolute; top: 0; right: 5px; padding-top:10px;">×</button>
+
+</nav>
+<% end %>

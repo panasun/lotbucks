@@ -1,0 +1,77 @@
+<table id="transactions_deposit" class="table-sm table-striped table-responsive" data-toggle="datatables">
+  <thead>
+    <tr>
+      <th>ลำดับ</th>
+      <th width="15%">วันที่</th>
+      <th>สมาชิก</th>
+      <th>ชื่อบัญชี</th>
+      <th>ประเภท</th>
+      <th>จำนวนเงิน</th>
+      <th>ยอดเงินคงเหลือ</th>
+      <th>ธนาคารที่โอนเงินเข้า</th>
+      <th>เวลาที่โอน</th>
+      <th>หมายเหตุ</th>
+      <th>สถานะ</th>
+      <th>ไอดี</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <% @deposit.each_with_index do |r, index| %>
+
+    <tr>
+      <td><%= index+1 %></td>
+      <td><span id="deposit_<%= index %>_created_at"></span></td>
+      <td><%= r['username'] %></td>
+      <td><%= r['name'] %></td>
+      <td><%= r['type'] %></td>
+      <td><%= number_with_precision(r['value'], precision: 2, delimiter: ',') %></td>
+      <td><%= number_with_precision(r['money720808'], precision: 2, delimiter: ',') %></td>
+      <td><%= r['deposit_to_bank_id'] %></td>
+      <td><%= r['deposit_timestamp'] %></td>
+      <td><%= r['note'] %></td>
+      <td><%= r['status'] %></td>
+      <td><%= r['_id'].to_str.last(6) %></td>
+      <td>
+        <div class="dropdown">
+          <a class="color-content-color" href="javascript:void(0);" data-toggle="dropdown" aria-expanded="false">
+            <i class="material-icons list-icon">more_vert</i>
+          </a>
+          <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 19px, 0px); top: 0px; left: 0px; will-change: transform;">
+            <a class="dropdown-item" rel="nofollow" href="<%= requests_path + "/" + r['_id'] + "/confirm"%>">
+              <i class="material-icons list-icon float-left mr-r-10">done</i>
+              ยืนยัน
+            </a>
+            <a class="dropdown-item" rel="nofollow" href="<%= requests_path + "/" + r['_id'] + "/edit"%>">
+              <i class="material-icons list-icon float-left mr-r-10">mode_edit</i>
+              แก้ไข
+            </a>
+            <a class="dropdown-item" rel="nofollow" href="<%= requests_path + "/" + r['_id'] + "/cancel"%>">
+              <i class="material-icons list-icon float-left mr-r-10">clear</i>
+              ยกเลิก
+            </a>
+          </div>
+        </div>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+  <tfoot>
+    <tr>
+      <th>ลำดับ</th>
+      <th>วันที่</th>
+      <th>สมาชิก</th>
+      <th>ชื่อบัญชี</th>
+      <th>ประเภท</th>
+      <th>จำนวนเงิน</th>
+      <th>ยอดเงินคงเหลือ</th>
+      <th>ธนาคารที่โอนเงินเข้า</th>
+      <th>เวลาที่โอน</th>
+      <th>หมายเหตุ</th>
+      <th>สถานะ</th>
+      <th>ไอดี</th>
+      <th></th>
+    </tr>
+  </tfoot>
+</table>

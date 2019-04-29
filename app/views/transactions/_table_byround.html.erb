@@ -1,0 +1,77 @@
+<table id="transactions_byround" class="table table-sm table-striped table-resize-data table-hover">
+  <thead>
+    <tr>
+      <th>หวย</th>
+      <th>งวดวันที่</th>
+      <th>ยอดแทงทั้งหมด</th>
+      <th>ส่วนลด</th>
+      <th>ยอดได้</th>
+      <th>จำนวนแทง</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <% @rounds.each_with_index do |(key,value), index| %>
+     <tr id="transactions_byround_tr_<%= (index+1) %>" onclick="ShowSummaryTable('<%=index%>');">
+
+      <td>
+        <span id="transaction_byround_<%= index %>_product"></span>
+      </td>
+      <td>
+        <span id="transaction_byround_<%= index %>_result_date"></span>
+      </td>
+      <td>
+        <span id="transaction_byround_<%= index %>_bet_value"></span>
+      </td>
+      <td>
+        <span id="transaction_byround_<%= index %>_discount"></span>
+      </td>
+      <td>
+        <span id="transaction_byround_<%= index %>_pnl"></span>
+      </td>
+      <td>
+        <span id="transaction_byround_<%= index %>_transaction"></span>
+      </td>
+    </tr>
+
+    <% end %>
+
+    <tr>
+      <td></td>
+      <td><strong>รวม</strong></td>
+      <td><strong><span id="total_bet_value_by_round"></span></strong></td>
+      <td><strong><span id="total_discount_by_round"></span></strong></td>
+      <td><strong><span id="total_bet_win_by_round"></span></strong></td>
+      <td><strong><span id="total_bet_transaction_by_round"></span></strong></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+<div id="filter_byround_div">
+
+  <div class="modal modal-color-scheme fade bs-modal-lg-color-scheme modal-fullscreen" id="transactionSummary" role="dialog" aria-labelledby="transactionSummary" aria-hidden="true" style="display: none">
+    <div class="modal-dialog modal-lg bs-modal-lg-color-scheme">
+      <div class="modal-content">
+        <div class="modal-header text-inverse">
+          <button type="button" class="close"  data-dismiss="modal" aria-hidden="true">×</button>
+          <h5 class="modal-title" id="myLargeModalLabel">รายการฝาก-ถอนรายวัน</h5>
+        </div>
+        <div class="modal-body">
+
+
+          <div id="transactionSummarycontent"></div>
+        </div>
+        <div class="modal-footer">
+
+          <button type="button" class="btn btn-danger btn-rounded ripple text-left" data-dismiss="modal">ปิดหน้าต่าง</button>
+
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+</div>

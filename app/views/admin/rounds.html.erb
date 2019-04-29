@@ -1,0 +1,43 @@
+<main class="main-wrapper clearfix">
+
+  <div class="widget-list">
+    <div class="row">
+      <div class="col-md-12  widget-holder">
+        <div class="widget-bg">
+          <div class="widget-body clearfix">
+            <div class="tabs">
+              <ul class="nav nav-tabs nav-justified">
+                <li class="nav-item">
+                  <a class="nav-link active" href="#deposit" data-toggle="tab" aria-expanded="true">รอบที่กำลังเปิด</a>
+                </li>
+                <li class="nav-item" aria-expanded="false">
+                  <a class="nav-link" href="#laos" data-toggle="tab" aria-expanded="true">หวยลาว</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#status" data-toggle="tab" aria-expanded="true">หวยไทย</a>
+                </li>
+              </ul>
+              <!-- /.nav-tabs -->
+              <div class="tab-content">
+                <div class="tab-pane active" id="deposit" aria-expanded="false">
+                  <p>เพื่อความรวดเร็ว และสะดวกต่อการตรวจสอบของเจ้าหน้าที่ กรุณาโอนเงินมาเป็นเศษสตางค์ เช่น 1000.35 บาท</p>
+                </div>
+                <div class="tab-pane" id="laos" aria-expanded="false">
+                  <%= render 'rounds_laos', rounds: @rounds %>
+                </div>
+                <div class="tab-pane" id="status" aria-expanded="false">
+                </div>
+              </div>
+              <!-- /.tab-content -->
+            </div>
+            <!-- /.tabs -->
+          </div>
+          <!-- /.widget-body -->
+        </div>
+        <!-- /.widget-bg -->
+      </div>
+    </div>
+    <!-- /.row -->
+  </div>
+
+</main>

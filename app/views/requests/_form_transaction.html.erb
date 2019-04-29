@@ -1,0 +1,37 @@
+<table id="request_transaction" class="table table-sm table-striped table-responsive" data-toggle="datatables">
+  <thead>
+    <tr>
+      <th>ลำดับ</th>
+      <th>วันที่</th>
+      <th>ประเภท</th>
+      <th>จำนวนเงิน</th>
+      <th>สถานะ</th>
+      <th>ไอดี</th>
+
+    </tr>
+  </thead>
+  <tbody>
+
+    <% @requests.each_with_index do |r, index| %>
+
+    <tr>
+      <td><%= (index+1) %></td>
+      <td><span id="request_<%= index %>_created_at"></span></td>
+      <td><%= r['type'] %></td>
+      <td><%= number_with_precision(r['value'], precision: 2, delimiter: ',') %></td>
+      <td><%= r['status'] %></td>
+      <td><%= r['_id'].to_str.last(6) %></td>
+    </tr>
+    <% end %>
+  </tbody>
+  <tfoot>
+    <tr>
+      <th>ลำดับ</th>
+      <th>วันที่</th>
+      <th>ประเภท</th>
+      <th>จำนวนเงิน</th>
+      <th>สถานะ</th>
+      <th>ไอดี</th>
+    </tr>
+  </tfoot>
+</table>

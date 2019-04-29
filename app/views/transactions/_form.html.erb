@@ -1,0 +1,44 @@
+<%= form_with(model: transaction, local: true) do |form| %>
+  <% if transaction.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(transaction.errors.count, "error") %> prohibited this transaction from being saved:</h2>
+
+      <ul>
+      <% transaction.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+
+  <div class="field">
+        <%= form.label 'round' %><br />
+        <%= form.text_field :round, id: :transaction_round, autofocus: true %>
+  </div>
+
+  <div class="field">
+        <%= form.label 'จำนวนเงิน' %><br />
+        <%= form.text_field :bet_value, id: :transaction_bet_value, autofocus: true %>
+  </div>
+
+  <div class="field">
+        <%= form.label 'แต้มต่อ' %><br />
+        <%= form.text_field :odd, id: :transaction_odd, autofocus: true %>
+  </div>
+
+  <div class="field">
+        <%= form.label 'เลข' %><br />
+        <%= form.text_field :number, id: :transaction_number, autofocus: true %>
+  </div>
+
+  <div class="field">
+        <%= form.label 'ประเภทการเล่น' %><br />
+        <%= form.text_field :bet_type, id: :transaction_bet_type, autofocus: true %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

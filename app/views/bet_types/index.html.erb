@@ -1,0 +1,57 @@
+<main class="main-wrapper clearfix">
+
+
+    <!-- Page Title Area -->
+    <div class="row page-title clearfix">
+      <div class="page-title-left">
+        <h5 class="mr-0 mr-r-5">ตารางการจ่าย</h5>
+
+      </div>
+      <!-- /.page-title-left -->
+      <div class="page-title-right d-inline-flex">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="<%= root_path %>">หน้าหลัก</a>
+          </li>
+          <li class="breadcrumb-item">
+            <a href="<%= admin_index_path %>">แอดมิน</a>
+          </li>
+          <li class="breadcrumb-item active">
+            ตารางการจ่าย
+          </li>
+        </ol>
+      </div>
+      <!-- /.page-title-right -->
+    </div>
+    <!-- /.page-title -->
+
+  <div class="widget-list">
+    <div class="row">
+
+      <div class="col-md-3 widget-holder"></div>
+      <div class="col-md-6  widget-holder">
+        <div class="widget-bg">
+
+          <table>
+            <thead>
+              <tr>
+                <th width="10%">ประเภทหวย</th>
+                <th width="30%"></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% @bet_types.each do |bet_type| %>
+                <tr>
+                  <td><%= bet_type.product %></td>
+                  <td>
+                    <%= link_to 'Edit', edit_bet_type_path(bet_type) %>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

@@ -1,0 +1,60 @@
+<table id="transactions_all" class="table table-sm table-striped table-responsive" data-toggle="datatables">
+  <thead>
+    <tr>
+      <th>ลำดับ</th>
+      <th>วันที่</th>
+      <th>สมาชิก</th>
+      <th>ชื่อบัญชี</th>
+      <th>ประเภท</th>
+      <th>จำนวนเงิน</th>
+      <th>ยอดเงินคงเหลือ</th>
+      <th>ธนาคารที่โอน</th>
+      <th>เวลาที่โอน</th>
+      <th>ชื่อบัญชี</th>
+      <th>ธนาคาร</th>
+      <th>เลขที่บัญชี</th>
+      <th>สถานะ</th>
+      <th>ไอดี</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <% @requests.each_with_index do |r, index| %>
+
+    <tr>
+      <td><%= index+1 %></td>
+      <td><span id="request_<%= index %>_created_at"></span></td>
+      <td><%= r['username'] %></td>
+      <td><%= r['name'] %></td>
+      <td><%= r['type'] %></td>
+      <td><%= number_with_precision(r['value'], precision: 2, delimiter: ',') %></td>
+      <td><%= number_with_precision(r['money720808'], precision: 2, delimiter: ',') %></td>
+      <td><%= r['deposit_to_bank_id'] %></td>
+      <td><%= r['deposit_timestamp'] %></td>
+      <td><%= r['name'] %></td>
+      <td><%= r['bank_id'] %></td>
+      <td><%= r['bank_name'] %></td>
+      <td><%= r['status'] %></td>
+      <td><%= r['_id'].to_str.last(6) %></td>
+    </tr>
+    <% end %>
+  </tbody>
+  <tfoot>
+    <tr>
+      <th>ลำดับ</th>
+      <th>วันที่</th>
+      <th>สมาชิก</th>
+      <th>ชื่อบัญชี</th>
+      <th>ประเภท</th>
+      <th>จำนวนเงิน</th>
+      <th>ยอดเงินคงเหลือ</th>
+      <th>ธนาคารที่โอน</th>
+      <th>เวลาที่โอน</th>
+      <th>ชื่อบัญชี</th>
+      <th>ธนาคาร</th>
+      <th>เลขที่บัญชี</th>
+      <th>สถานะ</th>
+      <th>ไอดี</th>
+    </tr>
+  </tfoot>
+</table>

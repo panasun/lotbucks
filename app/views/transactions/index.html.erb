@@ -1,0 +1,69 @@
+<script>
+  var transactions_wait = "<%= @transactions_wait.to_json.gsub("money720808", "money") %>";
+  transactions_wait = JSON.parse(transactions_wait.replace(/&quot;/g, '\"'));
+  var transactions_history = "<%= @transactions_history.to_json.gsub("money720808", "money") %>";
+  transactions_history = JSON.parse(transactions_history.replace(/&quot;/g, '\"'));
+  var rounds = "<%= @rounds.to_json %>";
+  rounds = JSON.parse(rounds.replace(/&quot;/g, '\"'));
+</script>
+<script src="<%= root_url%>assets/js/transactions.js"></script>
+<main class="main-wrapper clearfix">
+  <!-- Page Title Area -->
+   <div class="row page-title clearfix">
+       <div class="page-title-left">
+           <h5 class="mr-0 mr-r-5">รายการแทง</h5>
+
+       </div>
+       <!-- /.page-title-left -->
+       <div class="page-title-right d-inline-flex">
+           <ol class="breadcrumb">
+               <li class="breadcrumb-item"><a href="<%= root_path %>">หน้าหลัก</a>
+               </li>
+               <li class="breadcrumb-item active">รายการแทง</li>
+           </ol>
+       </div>
+       <!-- /.page-title-right -->
+   </div>
+   <!-- /.page-title -->
+  <div class="widget-list">
+    <div class="row">
+      <div class="col-md-12  widget-holder">
+        <div class="widget-bg">
+          <div class="widget-body clearfix">
+            <div class="tabs">
+              <ul class="nav nav-tabs">
+                <li class="nav-item">
+                  <a class="nav-link active" href="#wait" data-toggle="tab" aria-expanded="true">รอออกผลรางวัล</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#byround" data-toggle="tab" aria-expanded="true">รายการย้อนหลังรายงวด</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#all" data-toggle="tab" aria-expanded="true">รายการย้อนหลังทั้งหมด</a>
+                </li>
+              </ul>
+              <!-- /.nav-tabs -->
+              <div class="tab-content">
+                <div class="tab-pane active" id="wait" aria-expanded="false">
+                  <%= render 'table_wait', transactions_wait: @transactions_wait, rounds: @rounds, bet_types: @bet_types %>
+                </div>
+                <div class="tab-pane" id="byround" aria-expanded="false">
+                  <%= render 'table_byround', transactions_byround: @transactions_byround, rounds: @rounds, bet_types: @bet_types %>
+                </div>
+                <div class="tab-pane" id="all" aria-expanded="false">
+                  <%= render 'table_all', transactions_history: @transactions_history, rounds: @rounds, bet_types: @bet_types %>
+                </div>
+              </div>
+              <!-- /.tab-content -->
+            </div>
+            <!-- /.tabs -->
+          </div>
+          <!-- /.widget-body -->
+        </div>
+        <!-- /.widget-bg -->
+      </div>
+    </div>
+    <!-- /.row -->
+  </div>
+
+</main>

@@ -1,0 +1,109 @@
+<main class="main-wrapper clearfix">
+  <!-- Page Title Area -->
+  <div class="row page-title clearfix">
+    <div class="page-title-left">
+      <h5 class="mr-0 mr-r-5">แก้ไขข้อมูล</h5>
+
+    </div>
+    <!-- /.page-title-left -->
+    <div class="page-title-right d-inline-flex">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="<%= root_path %>">หน้าหลัก</a>
+        </li>
+        <li class="breadcrumb-item active">ผู้ใช้งาน
+        </li>
+      </ol>
+    </div>
+    <!-- /.page-title-right -->
+  </div>
+  <!-- /.page-title -->
+
+  <div class="widget-list">
+    <div class="row">
+      <div class="col-md-3 widget-holder"></div>
+      <div class="col-md-6 widget-holder">
+        <div class="widget-bg">
+          <div class="widget-body clearfix">
+            <h5 class="box-title mr-b-0">แก้ไขข้อมูลผู้ใช้งาน</h5>
+            <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+            <%= devise_error_messages! %>
+
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="l10">เบอร์โทรศัพท์ :</label>
+              <div class="col-md-9">
+                <%= f.text_field :username, autofocus: true, placeholder: @user.username, class:"form-control", :readonly=>true %>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="l10">ชื่อ-นามสกุล :</label>
+              <div class="col-md-9">
+                <%= f.text_field :name, autofocus: true, placeholder: @user.name, class:"form-control", :readonly=>true %>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="l10">ธนาคารที่รับเงิน :</label>
+              <div class="col-md-9">
+                <%= f.text_field :bank_name, autofocus: true, placeholder: @user.bank_name, class:"form-control", :readonly=>true %>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="l10">หมายเลขบัญชีธนาคาร</label>
+              <div class="col-md-9">
+                <%= f.text_field :bank_id, autofocus: true, placeholder: @user.bank_id, class:"form-control", :readonly=>true %>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="l2">อีเมลล์ :</label>
+              <div class="col-md-9">
+                <div class="input-group">
+                  <%= f.email_field :email, autofocus: true, placeholder: @user.email, class:"form-control" %>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="l10">ไลน์ไอดี :</label>
+              <div class="col-md-9">
+                <%= f.text_field :line_id, autofocus: true, placeholder: @user.line_id, class:"form-control" %>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="l0">รหัสผ่านใหม่ :</label>
+              <div class="col-md-9">
+                <%= f.password_field :password, autocomplete: "off", placeholder: "รหัสผ่านใหม่ (ขั้นต่ำ 6 ตัว)", class: "form-control" %>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="l0">ยืนยันรหัสผ่านใหม่ :</label>
+              <div class="col-md-9">
+                <%= f.password_field :password_confirmation, autocomplete: "off", placeholder: "ยืนยันรหัสผ่านใหม่", class: "form-control" %>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="l0">รหัสผ่านปัจจุบัน :</label>
+              <div class="col-md-9">
+                <%= f.password_field :current_password, autocomplete: "off", placeholder: "รหัสผ่านปัจจุบัน", class: "form-control" %>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <div class="form-group row">
+                <div class="col-md-9 ml-md-auto btn-list">
+                  <%= f.submit "ยืนยัน", class: "btn btn-primary btn-rounded"%>
+                </div>
+              </div>
+            </div>
+
+            <% end %>
+          </div>
+          <!-- /.widget-body -->
+        </div>
+        <!-- /.widget-bg -->
+      </div>
+      <!-- /.widget-holder -->
+
+    </div>
+    <!-- /.row -->
+  </div>
+
+</main>

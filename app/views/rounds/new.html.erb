@@ -1,0 +1,44 @@
+<main class="main-wrapper clearfix">
+
+  <!-- Page Title Area -->
+  <div class="row page-title clearfix">
+    <div class="page-title-left">
+      <h5 class="mr-0 mr-r-5">เพิ่มรอบ</h5>
+
+    </div>
+    <!-- /.page-title-left -->
+    <div class="page-title-right d-inline-flex">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="<%= root_path %>">หน้าหลัก</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a href="<%= admin_index_path %>">แอดมิน</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a href="<%= rounds_path %>">รอบหวย</a>
+        </li>
+        <li class="breadcrumb-item active">เพิ่ม</li>
+      </ol>
+    </div>
+    <!-- /.page-title-right -->
+  </div>
+  <!-- /.page-title -->
+
+  <div class="widget-list">
+    <div class="row mr-b-0">
+      <div class="col-md-2"></div>
+      <div class="col-md-8">
+        <div class="widget-bg">
+          <div class="widget-body clearfix">
+
+            <%= render 'form', round: @round, bet_type: @bet_type %>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script src="<%= root_url%>assets/js/admin/round_168.js"></script>

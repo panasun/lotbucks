@@ -1,0 +1,69 @@
+<%= form_with(model: request, local: true) do |form| %>
+
+<div class="form-group row">
+  <label class="col-md-3 col-form-label" for="l10">ประเภทรายการ :</label>
+  <p class="col-md-9 form-control-plaintext">ฝากเงิน</p>
+  <%= form.text_field "request[type]", id: :type, autofocus: true, value: "ฝาก", class:"form-control", :hidden=>true %>
+</div>
+
+<div class="form-group row">
+  <label class="col-md-3 col-form-label" for="l10">ธนาคารที่โอน :</label>
+  <div class="col-md-9">
+    <div class="input-group">
+
+      <select name="request[deposit_to_bank_id]" id="deposit_to_bank_id" class="form-control">
+        <option value="">กรุณาเลือกบัญชีธนาคารที่โอนเงินเข้า</option>
+        <option value="3203359999">ธ.กรุงเทพ, ชื่อ: นายรวย มากมาก, เลขที่: 320-335-9999</option>
+        <option value="3203358888">ธ.กสิกรไทย, ชื่อ: นายรวย มากมาก, เลขที่: 325-335-8888</option>
+      </select>
+
+    </div>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label class="col-md-3 col-form-label" for="l10">จำนวนเงิน :</label>
+  <div class="col-md-9">
+    <div class="input-group">
+      <%= form.number_field "request[value]", id: 'deposit_value', autofocus: true, placeholder: "ระบุจำนวนเงิน", class:"form-control", step: :any %>
+    </div>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label class="col-md-3 col-form-label" for="l10">วันที่และเวลาที่โอน :</label>
+  <div class="col-md-9">
+    <div class="input-group">
+      <%= form.text_field "request[deposit_timestamp]", id: :deposit_timestamp, autofocus: true, placeholder: Time.now.strftime("%d/%m/%Y %H:%M"), class:"form-control" %>
+    </div>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label class="col-md-3 col-form-label" for="l10">หมายเหตุ :</label>
+  <div class="col-md-9">
+    <div class="input-group">
+      <%= form.text_area "request[note]", id: 'deposit_note', size: "20x3", autofocus: true, placeholder: "", class:"form-control" %>
+    </div>
+  </div>
+</div>
+
+<div class="checkbox checkbox-primary">
+  <label class="col-md-3 col-form-label" for="l10"></label>
+  <label class="">
+    <input type="checkbox" id="accept-confirm-deposit">
+    <span class="label-text">
+      <small>ฉันตรวจสอบรายการและยอมรับเงื่อนไขแล้ว</small>
+    </span>
+  </label>
+</div>
+
+<% end %>
+
+<div class="form-actions">
+  <div class="form-group row">
+    <div class="col-md-9 ml-md-auto btn-list">
+      <button id="submit_deposit" class="btn btn-block btn-rounded btn-color-scheme">ยืนยันการฝาก</button>
+    </div>
+  </div>
+</div>

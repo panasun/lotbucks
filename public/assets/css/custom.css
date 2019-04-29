@@ -1,0 +1,243 @@
+
+/** bet button **/
+
+margin: 10px 2px;
+padding: 10px;.col-xs-15,
+.col-sm-15,
+.col-md-15,
+.col-lg-15 {
+    position: relative;
+    min-height: 1px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.col-xs-15 {
+    width: 20%;
+    float: left;
+}
+@media (min-width: 768px) {
+    .col-sm-15 {
+        width: 20%;
+        float: left;
+    }
+}
+@media (min-width: 992px) {
+    .col-md-15 {
+        width: 20%;
+        float: left;
+    }
+}
+@media (min-width: 1200px) {
+    .col-lg-15 {
+        width: 20%;
+        float: left;
+    }
+}
+
+
+/** bet button **/
+.col-xs-110,
+.col-sm-110,
+.col-md-110,
+.col-lg-110 {
+    position: relative;
+    min-height: 1px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.col-xs-110 {
+    width: 10%;
+    float: left;
+}
+@media (min-width: 768px) {
+    .col-sm-110 {
+        width: 10%;
+        float: left;
+    }
+}
+@media (min-width: 992px) {
+    .col-md-110 {
+        width: 10%;
+        float: left;
+    }
+}
+@media (min-width: 1200px) {
+    .col-lg-110 {
+        width: 10%;
+        float: left;
+    }
+}
+
+
+/** btn-responsive **/
+.btn-responsive {
+    white-space: normal !important;
+    word-wrap: break-word;
+}
+
+
+/** tab-bet-panel **/
+.tab-bet-panel {
+    width: 10%;
+    float: left;
+}
+@media (max-width: 480px) {
+    .tab-bet-panel {
+        width: 20%;
+        float: left;
+    }
+}
+
+.tab-bet-nav-link {
+  float: left;
+  text-align: center !important;
+  width: 100% !important;
+  padding: 10px 0px 10px 0px !important;
+}
+
+.tab-menu-panel {
+    width: 15%;
+    float: left;
+    text-align: center;
+}
+@media (max-width: 480px) {
+    .tab-menu-panel {
+        width: 40% !important;
+        float: left;
+    }
+}
+
+.table-bet-list {
+  width: 100%;
+}
+.table-bet-list td{
+  vertical-align: middle;
+  padding: 0px 5px 0px 5px;
+   border: 0 !important;
+}
+
+
+.btn-disabled {
+  background-color: #4f535d !important;
+  color: #c1cdcd;
+}
+
+.span-danger {
+  background-color: #FFFF00"
+}
+
+
+
+/** font in table **/
+
+.table-resize {
+  font-size: 2.2vw;
+}
+@media (min-width: 480px) {
+    .table-resize {
+        font-size:2vw;
+    }
+}
+@media (min-width: 768px) {
+    .table-resize {
+        font-size:1.6vw;
+    }
+}
+@media (min-width: 992px) {
+    .table-resize {
+      font-size:1vw;
+    }
+}
+@media (min-width: 1200px) {
+    .table-resize {
+      font-size: 1vw;
+    }
+}
+
+.table-resize-data td {
+  margin: 0px 0px 0px 0px !important;
+  padding: 0px 0px 0px 0px !important;
+}
+.table-resize-data {
+  font-size: 1.0vw;
+}
+@media (min-width: 480px) {
+    .table-resize-data {
+        font-size:1.0vw;
+    }
+}
+@media (min-width: 768px) {
+    .table-resize-data {
+        font-size:1.6vw;
+    }
+}
+@media (min-width: 992px) {
+    .table-resize-data {
+      font-size:1vw;
+    }
+}
+@media (min-width: 1200px) {
+    .table-resize-data {
+      font-size: 1vw;
+    }
+}
+
+.table-resize-data-2 td {
+  margin: 0px 0px 0px 0px !important;
+  padding: 0px 0px 0px 0px !important;
+}
+.table-resize-data-2 {
+  font-size: 0.8vw;
+}
+@media (min-width: 480px) {
+    .table-resize-data-2 {
+        font-size:0.8vw;
+    }
+}
+@media (min-width: 768px) {
+    .table-resize-data-2 {
+        font-size:1.5vw;
+    }
+}
+@media (min-width: 992px) {
+    .table-resize-data-2 {
+      font-size:1vw;
+    }
+}
+@media (min-width: 1200px) {
+    .table-resize-data-2 {
+      font-size: 1vw;
+    }
+}
+
+
+
+.table-resize-data-3 td {
+  margin: 0px 0px 0px 0px !important;
+  padding: 0px 0px 0px 0px !important;
+}
+.table-resize-data-3 {
+  font-size: 1.1vw;
+}
+@media (min-width: 480px) {
+    .table-resize-data-3 {
+        font-size:1.1;
+    }
+}
+@media (min-width: 768px) {
+    .table-resize-data-3 {
+        font-size:1.5vw;
+    }
+}
+@media (min-width: 992px) {
+    .table-resize-data-3 {
+      font-size:1vw;
+    }
+}
+@media (min-width: 1200px) {
+    .table-resize-data-3 {
+      font-size: 1vw;
+    }
+}

@@ -1,0 +1,14 @@
+<%= form_with(model: request, local: true) do |form| %>
+
+
+
+  <div class="field">
+        <%= form.label 'จำนวนเงิน' %><br />
+        <%= form.number_field :value, id: :value, autofocus: true %>
+  </div>
+
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

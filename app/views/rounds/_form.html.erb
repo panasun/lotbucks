@@ -1,0 +1,214 @@
+<form>
+  <%= csrf_meta_tag %>
+  <input id="round_id" value="<%= @round['id'] %>" type="hidden">
+
+  <div class="form-group row">
+    <label class="col-md-3 col-form-label" for="l10">หวย :</label>
+    <div class="col-md-9">
+      <div class="input-group">
+
+        <select name="product" id="product" class="form-control" autofocus="autofocus" <%= @round['id'] != 'new' ? 'disabled=""' : '' %> >
+          <option value="หวยลาว" <%= @round['product'] == "หวยลาว" ? "selected" : "" %>>หวยลาว</option>
+          <option value="หวยไทย" <%= @round['product'] == "หวยไทย" ? "selected" : "" %>>หวยไทย</option>
+        </select>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-md-3 col-form-label" for="l10">สถานะ :</label>
+    <div class="col-md-9">
+      <div class="input-group">
+
+        <select name="status" id="status" class="form-control" autofocus="autofocus" <%= @round['status'] == 'proceed' ? 'disabled=""' : '' %> >
+          <option value="open" <%= @round['status'] == "open" ? "selected" : "" %>>เปิดรับแทง</option>
+          <option value="close" <%= @round['status'] == "close" ? "selected" : "" %>>ปิดรับแทง</option>
+          <option value="proceed" <%= @round['status'] == "proceed" ? "selected" : "" %> disabled>ออกผลรางวัลแล้ว</option>
+        </select>
+
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-md-3 col-form-label" for="l10">งวดวันที่ :</label>
+    <div class="col-md-9">
+      <div class="input-group">
+        <% if @round['id'] == "new" %>
+        <input id="result_date" class="form-control datepicker" step="any" type="text" name="round[result_date]" <%= @round['status'] == 'proceed' ? 'disabled=""' : '' %> >
+        <input type="text" class="form-control clockpicker" data-masked-input="99:99" id="result_time" <%= @round['status'] == 'proceed' ? 'disabled=""' : '' %> >
+        <% else %>
+        <input id="result_date"  class="form-control datepicker" step="any" type="text" name="round[result_date]" value="<%= @round['result_date'] %>" <%= @round['status'] == 'proceed' ? 'disabled=""' : '' %> >
+        <input type="text" class="form-control clockpicker" data-masked-input="99:99" id="result_time" value="<%= @round['result_time'] %>" <%= @round['status'] == 'proceed' ? 'disabled=""' : '' %> >
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <hr />
+
+  <div id="limit_number">
+    <h5 class="box-title">เลขอั้น</h5>
+    <table class="table table-responsive">
+      <thead>
+        <tr class="bg-primary text-inverse">
+          <th style="width:40%">ประเภทแทง</th>
+          <th style="width:30%">เลขที่อั้น</th>
+          <th style="width:30%">แต้มต่อ</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% b = @round['id'] == "new"  ? 0 : @round['limit'].count %>
+        <% n = [40, b].max %>
+        <% (1..40).each do |r| %>
+        <tr>
+          <% if @round['id'] == "new" ||  defined?(@round['limit'][r-1]['bet_type']).nil? %>
+          <td>
+            <select class="form-control " id="limit_bet_type_<%= r %>" name="round[limit][product]" <%= @round['status'] == 'proceed' ? 'disabled=""' : '' %> >
+              <% @bet_type_list.each do |k, v| %>
+              <option value="<%= k %>"><%= v %></option>
+              <% end %>
+            </select>
+          </td>
+          <td>
+            <input class="form-control" type="text" id="limit_number_<%= r %>" name="round[limit][number]" value="" <%= @round['status'] == 'proceed' ? 'disabled=""' : '' %> >
+          </td>
+          <td>
+            <input class="form-control" type="number" id="limit_odd_<%= r %>" name="round[limit][odd]" value="0" <%= @round['status'] == 'proceed' ? 'disabled=""' : '' %> >
+          </td>
+          <% else %>
+          <td>
+            <select class="form-control " id="limit_bet_type_<%= r %>" name="round[limit][product]" <%= @round['status'] == 'proceed' ? 'disabled=""' : '' %> >
+              <% @bet_type_list.each do |k, v| %>
+
+              <%= isSelect = (@round['limit'][r-1]['bet_type'] == k) ? "selected" : "" %>
+              <option value="<%= k %>" <%= isSelect %>><%= v %></option>
+              <% end %>
+            </select>
+          </td>
+          <td>
+            <input class="form-control" type="text" id="limit_number_<%= r %>" name="round[limit][number]" value="<%= @round['limit'][r-1]['number'] %>" <%= @round['status'] == 'proceed' ? 'disabled=""' : '' %> >
+          </td>
+          <td>
+            <input class="form-control" type="number" id="limit_odd_<%= r %>" name="round[limit][odd]" value="<%= @round['limit'][r-1]['odd'] %>" <%= @round['status'] == 'proceed' ? 'disabled=""' : '' %> >
+          </td>
+          <% end %>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <hr />
+
+  <% if @round['id'] != "new" && @round['product'] == 'หวยไทย' %>
+
+  <div id="result_number_thai" class="jumbotron">
+    <h5>ผลรางวัลหวยไทย</h5>
+    <div class="form-group row">
+      <label class="col-md-2 col-form-label" for="l10">รางวัลที่ 1:</label>
+      <div class="col-md-5">
+        <div class="input-group">
+          <input id="result_number_6digits" class="form-control" step="any" type="text" name="round[result_number][6digits]" value="<%= @round['result_number']['6digits'] if @round['result_number'] %>" <%= @round['status'] != 'close' ? 'disabled=""' : '' %> >
+        </div>
+      </div>
+
+      <label class="col-md-2 col-form-label" for="l10">เลขท้าย 2 ตัวล่าง:</label>
+      <div class="col-md-2">
+        <div class="input-group">
+          <input id="result_number_2digits" class="form-control" step="any" type="text" name="round[result_number][2digits]" value="<%= @round['result_number']['2digits'] if @round['result_number'] %>" <%= @round['status'] != 'close' ? 'disabled=""' : '' %> >
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-md-3 col-form-label" for="l10">เลขท้าย 3 ตัว:</label>
+      <div class="col-md-2">
+        <div class="input-group">
+          <input id="result_number_3digits_1" class="form-control" step="any" type="text" name="round[result_number][3digits_1]" value="<%= @round['result_number']['3digits_1'] if @round['result_number'] %>" <%= @round['status'] != 'close' ? 'disabled=""' : '' %> >
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="input-group">
+          <input id="result_number_3digits_2" class="form-control" step="any" type="text" name="round[result_number][3digits_2]" value="<%= @round['result_number']['3digits_2'] if @round['result_number'] %>" <%= @round['status'] != 'close' ? 'disabled=""' : '' %> >
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="input-group">
+          <input id="result_number_3digits_3" class="form-control" step="any" type="text" name="round[result_number][3digits_2]" value="<%= @round['result_number']['3digits_2'] if @round['result_number'] %>" <%= @round['status'] != 'close' ? 'disabled=""' : '' %> >
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="input-group">
+          <input id="result_number_3digits_4" class="form-control" step="any" type="text" name="round[result_number][3digits_2]" value="<%= @round['result_number']['3digits_2'] if @round['result_number'] %>" <%= @round['status'] != 'close' ? 'disabled=""' : '' %> >
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-md-3 col-form-label" for="l10">เลขหน้า 3 ตัว:</label>
+      <div class="col-md-2">
+        <div class="input-group">
+          <input id="result_number_3digits_5" class="form-control" step="any" type="text" name="round[result_number][3digits_5]" value="<%= @round['result_number']['3digits_5'] if @round['result_number'] %>" <%= @round['status'] != 'close' ? 'disabled=""' : '' %> >
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="input-group">
+          <input id="result_number_3digits_6" class="form-control" step="any" type="text" name="round[result_number][3digits_6]" value="<%= @round['result_number']['3digits_6'] if @round['result_number'] %>" <%= @round['status'] != 'close' ? 'disabled=""' : '' %> >
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <% elsif @round['id'] != "new" && @round['product'] == 'หวยลาว' %>
+  <div id="result_number_laos" class="jumbotron">
+    <h5>ผลรางวัลหวยลาว</h5>
+    <div class="form-group row">
+      <label class="col-md-2 col-form-label" for="l10">เลข 4 ตัว:</label>
+      <div class="col-md-4">
+        <div class="input-group">
+          <input id="result_number_4digits" class="form-control" step="any" type="text" name="round[result_number][4digits]" value="<%= @round['result_number']['4digits'] if @round['result_number'] %>" <%= @round['status'] != 'close' ? 'disabled=""' : '' %> >
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-md-2 col-form-label" for="l10">เลข 3 ตัว:</label>
+      <div class="col-md-4">
+        <div class="input-group">
+          <input id="result_number_3digits" class="form-control" step="any" type="text" name="round[result_number][3digits]" value="<%= @round['result_number']['3digits'] if @round['result_number'] %>" <%= @round['status'] != 'close' ? 'disabled=""' : '' %> >
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-md-2 col-form-label" for="l10">เลข 2 ตัว:</label>
+      <div class="col-md-4">
+        <div class="input-group">
+          <input id="result_number_2digits" class="form-control" step="any" type="text" name="round[result_number][2digits]" value="<%= @round['result_number']['2digits'] if @round['result_number'] %>" <%= @round['status'] != 'close' ? 'disabled=""' : '' %> >
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <% end %>
+
+  <div class="checkbox checkbox-primary">
+    <label class="">
+      <input type="checkbox" id="accept-confirm">
+      <span class="label-text">
+        <small>ฉันตรวจสอบรายการครบถ้วนแล้ว</small>
+      </span>
+    </label>
+  </div>
+
+</form>
+
+
+<button id="submit_bet" class="btn btn-block btn-rounded btn-color-scheme" <%= @round['status'] == 'proceed' ? 'disabled=""' : '' %> >ยืนยันข้อมูล</button>
+<% if @round['id'] != "new" && !@round['result_number'].nil? && @round['status'] == 'close' && @round['result_number']['2digits'] != ''%>
+<button id="calculate_result" class="btn btn-block btn-rounded btn-outline-default" >คำนวนผลรางวัล</button>
+<% end %>
+
+<% if @round['id'] != "new" && !@round['result_number_bet_type'].nil? && @round['status'] == 'close'  && @round['result_number']['2digits'] != ''%>
+<button id="calculate_bet" class="btn btn-block btn-rounded btn-outline-default" <%= @round['status'] != 'close' ? 'disabled=""' : '' %> >ประมวลผลรายการแทง</button>
+<% end %>

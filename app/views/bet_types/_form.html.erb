@@ -1,0 +1,146 @@
+<form>
+  <%= csrf_meta_tag %>
+
+  <input class="form-control" type="text" id="bet_type_id" value="<%= @bet_type['id'] %>" hidden><br/>
+
+  <div class="form-group row">
+    <label class="col-md-3 col-form-label" for="l10">หวย :</label>
+    <div class="col-md-6">
+      <div class="input-group">
+
+        <select name="product" id="product" class="form-control" autofocus="autofocus">
+          <option value="หวยลาว" <%= @bet_type['product'] == "หวยลาว" ? "selected" : "" %>>หวยลาว</option>
+          <option value="หวยไทย" <%= @bet_type['product'] == "หวยไทย" ? "selected" : "" %>>หวยไทย</option>
+        </select>
+
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <table class="table table-responsive">
+      <thead>
+        <tr class="bg-primary text-inverse">
+          <th>ประเภท</th>
+          <th>แต้มต่อ</th>
+          <th>ความเสี่ยงสูงสุด (บาท)</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <% @bet_type_list.each do |k, v| %>
+        <tr>
+          <td>
+            <%=v%>
+            <input class="form-control" type="text" id="<%= k %>_name" value="<%=v%>" hidden>
+          </td>
+          <% if @bet_type['id'] == "new" %>
+          <td>
+            <input class="form-control" type="number" id="<%= k %>_odd" value=""><br/>
+          </td>
+          <td>
+            <input class="form-control" type="number" id="<%= k %>_maxrisk" value=""><br/>
+          </td>
+          <% else %>
+          <td>
+            <input class="form-control" type="number" id="<%= k %>_odd" value="<%= @bet_type['bet_type'][k]['odd'] %>"><br/>
+          </td>
+          <td>
+            <input class="form-control" type="number" id="<%= k %>_maxrisk" value="<%= @bet_type['bet_type'][k]['maxrisk'] %>"><br/>
+          </td>
+          <% end %>
+        </tr>
+        <% end %>
+
+      </tbody>
+    </table>
+  </div>
+
+  <div id="bet_list_b21">
+    <h5 class="box-title">ตารางราคา</h5>
+    <table class="table table-responsive">
+      <thead>
+        <tr class="bg-primary text-inverse">
+          <th width="10%">ประเภท</th>
+          <th>รายการ</th>
+          <th>Level 1</th>
+          <th>Level 2</th>
+          <th>Level 3</th>
+          <th>Level 4</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <% @bet_type_list.each do |k, v| %>
+        <tr>
+          <td>
+            <%=v%>
+          </td>
+          <td>
+            <input class="form-control" type="text" value="ยอดแทงต่ำสุด" disabled=""><br/>
+            <input class="form-control" type="text" value="ยอดแทงสูงสุด" disabled=""><br/>
+            <input class="form-control" type="text" value="ส่วนลด (%)" disabled=""><br/>
+          </td>
+          <% if @bet_type['id'] == "new" %>
+          <td>
+            <input class="form-control" type="number" id="<%= k %>_minbet_level1" value=""><br/>
+            <input class="form-control" type="number" id="<%= k %>_maxbet_level1" value=""><br/>
+            <input class="form-control" type="number" id="<%= k %>_discount_level1" value=""><br/>
+          </td>
+          <td>
+            <input class="form-control" type="number" id="<%= k %>_minbet_level2" value=""><br/>
+            <input class="form-control" type="number" id="<%= k %>_maxbet_level2" value=""><br/>
+            <input class="form-control" type="number" id="<%= k %>_discount_level2" value=""><br/>
+          </td>
+          <td>
+            <input class="form-control" type="number" id="<%= k %>_minbet_level3" value=""><br/>
+            <input class="form-control" type="number" id="<%= k %>_maxbet_level3" value=""><br/>
+            <input class="form-control" type="number" id="<%= k %>_discount_level3" value=""><br/>
+          </td>
+          <td>
+            <input class="form-control" type="number" id="<%= k %>_minbet_level4" value=""><br/>
+            <input class="form-control" type="number" id="<%= k %>_maxbet_level4" value=""><br/>
+            <input class="form-control" type="number" id="<%= k %>_discount_level4" value=""><br/>
+          </td>
+          <% else %>
+          <td>
+            <input class="form-control" type="number" id="<%= k %>_minbet_level1" value="<%= @bet_type['bet_type'][k]['level']['level1']['minbet'] %>"><br/>
+            <input class="form-control" type="number" id="<%= k %>_maxbet_level1" value="<%= @bet_type['bet_type'][k]['level']['level1']['maxbet'] %>"><br/>
+            <input class="form-control" type="number" id="<%= k %>_discount_level1" value="<%= @bet_type['bet_type'][k]['level']['level1']['discount'] %>"><br/>
+          </td>
+          <td>
+            <input class="form-control" type="number" id="<%= k %>_minbet_level2" value="<%= @bet_type['bet_type'][k]['level']['level2']['minbet'] %>"><br/>
+            <input class="form-control" type="number" id="<%= k %>_maxbet_level2" value="<%= @bet_type['bet_type'][k]['level']['level2']['maxbet'] %>"><br/>
+            <input class="form-control" type="number" id="<%= k %>_discount_level2" value="<%= @bet_type['bet_type'][k]['level']['level2']['discount'] %>"><br/>
+          </td>
+          <td>
+            <input class="form-control" type="number" id="<%= k %>_minbet_level3" value="<%= @bet_type['bet_type'][k]['level']['level3']['minbet'] %>"><br/>
+            <input class="form-control" type="number" id="<%= k %>_maxbet_level3" value="<%= @bet_type['bet_type'][k]['level']['level3']['maxbet'] %>"><br/>
+            <input class="form-control" type="number" id="<%= k %>_discount_level3" value="<%= @bet_type['bet_type'][k]['level']['level3']['discount'] %>"><br/>
+          </td>
+          <td>
+            <input class="form-control" type="number" id="<%= k %>_minbet_level4" value="<%= @bet_type['bet_type'][k]['level']['level4']['minbet'] %>"><br/>
+            <input class="form-control" type="number" id="<%= k %>_maxbet_level4" value="<%= @bet_type['bet_type'][k]['level']['level4']['maxbet'] %>"><br/>
+            <input class="form-control" type="number" id="<%= k %>_discount_level4" value="<%= @bet_type['bet_type'][k]['level']['level4']['discount'] %>"><br/>
+          </td>
+
+          <% end %>
+        </tr>
+        <% end %>
+
+      </tbody>
+    </table>
+  </div>
+
+  <div class="checkbox checkbox-primary">
+    <label class="">
+      <input type="checkbox" id="accept-confirm">
+      <span class="label-text">
+        <small>ฉันตรวจสอบรายการครบถ้วนแล้ว</small>
+      </span>
+    </label>
+  </div>
+
+</form>
+
+<button id="submit" class="btn btn-block btn-rounded btn-color-scheme">ยืนยันข้อมูล</button>

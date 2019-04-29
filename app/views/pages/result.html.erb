@@ -1,0 +1,160 @@
+<main class="main-wrapper clearfix">
+  <!-- Page Title Area -->
+   <div class="row page-title clearfix">
+       <div class="page-title-left">
+           <h5 class="mr-0 mr-r-5">ผลรางวัล</h5>
+
+       </div>
+       <!-- /.page-title-left -->
+       <div class="page-title-right d-inline-flex">
+           <ol class="breadcrumb">
+               <li class="breadcrumb-item"><a href="<%= root_path %>">หน้าหลัก</a>
+               </li>
+               <li class="breadcrumb-item active">ผลรางวัล</li>
+           </ol>
+       </div>
+       <!-- /.page-title-right -->
+   </div>
+   <!-- /.page-title -->
+
+  <div class="widget-list">
+    <div class="row mr-b-1">
+      <div class="col-md-6">
+        <div class="widget-bg">
+          <div class="widget-body clearfix">
+            <div class="text-center">
+              <h4 class="fw-700">หวยไทย</h4>
+            </div>
+            <div>
+                <h5>ผลรางวัล</h5>
+                <table class='table table-striped widget-status-table table-responsive mr-b-0'>
+
+                  <% if !@round_thai[0].result_number.nil? %>
+
+                  <tr>
+                    <td><strong>งวดวันที่</strong></td>
+                    <td><%= @round_thai[0].result_date %></td>
+                  </tr>
+                  <tr>
+                    <td><strong>รางวัลที่ 1</strong></td>
+                    <td><%= @round_thai[0].result_number['6digits'] %></td>
+                  </tr>
+                  <tr>
+                    <td><strong>เลขท้าย 2 ตัวล่าง</strong></td>
+                    <td><%= @round_thai[0].result_number['2digits'] %></td>
+                  </tr>
+                  <tr>
+                    <td><strong>เลขท้าย 3 ตัว</strong></td>
+                    <td><%= [@round_thai[0].result_number['3digits_1'], @round_thai[0].result_number['3digits_2']].join(',') %></td>
+                  </tr>
+                  <tr>
+                    <td><strong>เลขหน้า 3 ตัว</strong></td>
+                    <td><%= [@round_thai[0].result_number['3digits_5'], @round_thai[0].result_number['3digits_6']].join(',') %></td>
+                  </tr>
+                  <tr>
+                    <td><strong>3 ตัวบน</strong></td>
+                    <td><%= @round_thai[0].result_number_bet_type['b31'].join(',') %></td>
+                  </tr>
+                  <tr>
+                    <td><strong>3 ตัวโต๊ด</strong></td>
+                    <td><%= @round_thai[0].result_number_bet_type['b32'].join(',') %></td>
+                  </tr>
+                  <tr>
+                    <td><strong>3 ตัวล่าง</strong></td>
+                    <td><%= @round_thai[0].result_number_bet_type['b33'].join(',') %></td>
+                  </tr>
+                  <tr>
+                    <td><strong>3 ตัวหน้า</strong></td>
+                    <td><%= @round_thai[0].result_number_bet_type['b34'].join(',') %></td>
+                  </tr>
+                  <tr>
+                    <td><strong>2 ตัวบน</strong></td>
+                    <td><%= @round_thai[0].result_number_bet_type['b21'].join(',') %></td>
+                  </tr>
+                  <tr>
+                    <td><strong>2 ตัวล่าง</strong></td>
+                    <td><%= @round_thai[0].result_number_bet_type['b22'].join(',') %></td>
+                  </tr>
+                  <tr>
+                    <td><strong>วิ่งบน</strong></td>
+                    <td><%= @round_thai[0].result_number_bet_type['b11'].join(',') %></td>
+                  </tr>
+                  <tr>
+                    <td><strong>วิ่งล่าง</strong></td>
+                    <td><%= @round_thai[0].result_number_bet_type['b12'].join(',') %></td>
+                  </tr>
+                  <% end %>
+                </table>
+            </div>
+
+
+
+          </div>
+        </div>
+        <!-- /.widget-bg -->
+      </div>
+
+      <div class="col-md-6">
+        <div class="widget-bg">
+          <div class="widget-body clearfix">
+            <div class="text-center">
+              <h4 class="fw-700">หวยลาว</h4>
+            </div>
+
+            <div>
+                <h5>ผลรางวัล</h5>
+                <table class='table table-striped widget-status-table  table-responsive mr-b-0'>
+
+                  <% if !@round_laos[0].result_number.nil? %>
+
+                  <tr>
+                    <td><strong>งวดวันที่</strong></td>
+                    <td><%= @round_laos[0].result_date %></td>
+                  </tr>
+                  <tr>
+                    <td><strong>เลข 4 ตัว</strong></td>
+                    <td><%= @round_laos[0].result_number['4digits'] %></td>
+                  </tr>
+                  <tr>
+                    <td><strong>เลข 3 ตัว</strong></td>
+                    <td><%= @round_laos[0].result_number['3digits'] %></td>
+                  </tr>
+                  <tr>
+                    <td><strong>เลข 2 ตัว</strong></td>
+                    <td><%= @round_laos[0].result_number['2digits'] %></td>
+                  </tr>
+                  <tr>
+                    <td><strong>3 ตัวบน</strong></td>
+                    <td><%= @round_laos[0].result_number_bet_type['b31'].join(',') %></td>
+                  </tr>
+                  <tr>
+                    <td><strong>3 ตัวโต๊ด</strong></td>
+                    <td><%= @round_laos[0].result_number_bet_type['b32'].join(',') %></td>
+                  </tr>
+                  <tr>
+                    <td><strong>2 ตัวบน</strong></td>
+                    <td><%= @round_laos[0].result_number_bet_type['b21'].join(',') %></td>
+                  </tr>
+                  <tr>
+                    <td><strong>2 ตัวล่าง</strong></td>
+                    <td><%= @round_laos[0].result_number_bet_type['b22'].join(',') %></td>
+                  </tr>
+                  <% end %>
+                </table>
+            </div>
+
+
+          </div>
+        </div>
+        <!-- /.widget-bg -->
+      </div>
+
+    </div>
+    <!-- /.row -->
+  </div>
+
+
+
+</main>
+
+<script src="<%= root_url%>assets/js/products_thai_table.js"></script>

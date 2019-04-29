@@ -1,0 +1,62 @@
+<%= form_with(model: request, local: true) do |form| %>
+
+<div class="form-group row">
+  <label class="col-md-3 col-form-label">คุณมีเงินคงเหลือ :</label>
+  <p class="col-md-9 form-control-plaintext"><%= number_with_precision(current_user.money720808, precision: 2, delimiter: ',') %>
+    บาท</p>
+
+    <%= form.text_field "user_money_withdraw", id: 'user_money_withdraw', autofocus: true, value: current_user.money720808, class:"form-control", :hidden=>true %>
+</div>
+
+<div class="form-group row">
+  <label class="col-md-3 col-form-label" for="l10">ประเภทรายการ :</label>
+  <p class="col-md-9 form-control-plaintext">ถอนเงิน</p>
+  <%= form.text_field "request[type]", id: :type, autofocus: true, value: "ถอน", class:"form-control", :hidden=>true %>
+</div>
+
+<div class="form-group row">
+  <label class="col-md-3 col-form-label" for="l10">ชื่อบัญชี :</label>
+  <p class="col-md-9 form-control-plaintext"><%= current_user.name %></p>
+</div>
+
+<div class="form-group row">
+  <label class="col-md-3 col-form-label" for="l10">ธนาคาร :</label>
+  <p class="col-md-9 form-control-plaintext"><%= current_user.bank_name %></p>
+</div>
+
+<div class="form-group row">
+  <label class="col-md-3 col-form-label" for="l10">เลขที่บัญชี :</label>
+  <p class="col-md-9 form-control-plaintext"><%= current_user.bank_id %></p>
+</div>
+
+<div class="form-group row">
+  <label class="col-md-3 col-form-label" for="l10">จำนวนเงินที่ต้องการถอน :</label>
+  <div class="col-md-9">
+    <div class="input-group">
+      <%= form.number_field "request[value]", id: 'withdraw_value', autofocus: true, placeholder: "ระบุจำนวนเงิน ขั้นต่ำ 500 บาท", class:"form-control", step: :any %>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="checkbox checkbox-primary">
+  <label class="col-md-3 col-form-label" for="l10"></label>
+  <label class="">
+    <input type="checkbox" id="accept-confirm-withdraw">
+    <span class="label-text">
+      <small>ฉันตรวจสอบรายการและยอมรับเงื่อนไขแล้ว</small>
+    </span>
+  </label>
+</div>
+
+<% end %>
+
+
+<div class="form-actions">
+  <div class="form-group row">
+    <div class="col-md-9 ml-md-auto btn-list">
+      <button id="submit_withdraw" class="btn btn-block btn-rounded btn-color-scheme">ยืนยันการถอน</button>
+    </div>
+  </div>
+</div>

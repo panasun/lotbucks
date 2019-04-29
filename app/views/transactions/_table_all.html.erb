@@ -1,0 +1,125 @@
+<table id="transactions_all" class="table table-sm table-striped  table-resize-data-2" data-toggle="datatables">
+  <thead>
+    <tr>
+      <th class="sorting_asc">ลำดับ</th>
+      <th>วันที่</th>
+      <th>หวย</th>
+      <th>งวดวันที่</th>
+      <th>ประเภท</th>
+      <th>เลขที่แทง</th>
+      <th>แต้มต่อ</th>
+      <th>ยอดแทง</th>
+      <th>ส่วนลด</th>
+      <th>ยอดได้</th>
+      <th>สุทธิ</th>
+      <th style="display:none;">ยอดเงินคงเหลือ(ก่อนแทง)</th>
+      <th style="display:none;">ยอดเงินคงเหลือ(หลังแทง, ก่อนออกผลรางวัล)</th>
+      <th>สถานะ</th>
+      <th>ไอดีการแทง</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <%
+        @bet_value_sum = 0
+        @bet_discount_sum = 0
+        @bet_win_sum = 0
+        @bet_net_sum = 0
+    %>
+
+    <% @transactions_history.each_with_index do |t, index| %>
+    <% cWin = t['status'] == 'ถูก' ? 'table-success' : '' %>
+    <%
+        @bet_value_sum = @bet_value_sum + t['bet_value']
+        @bet_discount_sum = @bet_discount_sum + t['bet_value']*t['discount']/100
+        @bet_win_sum = @bet_win_sum + (t['status'] == 'ถูก' ? t['paid'] : 0)
+        @bet_net_sum = @bet_net_sum + t['paid'] - t['bet_value'] + t['bet_value']*t['discount']/100
+    %>
+
+     <tr class="<%= cWin %>">
+      <td>
+        <%= (index+1) %>
+      </td>
+      <td>
+        <span id="transaction_history_<%= index %>_created_at"></span>
+      </td>
+      <td>
+        <%= @rounds[t['round']]['product'] %>
+      </td>
+      <td>
+        <span id="transaction_history_<%= index %>_result_date"></span>
+      </td>
+      <td>
+        <%= @bet_type_list[t['bet_type']] %>
+      </td>
+      <td>
+        <%= t['number'] %>
+      </td>
+      <td>
+        <%= t['odd'] %>
+      </td>
+      <td>
+        <%= number_with_precision(t['bet_value'], precision: 0, delimiter: ',') %>
+      </td>
+      <td>
+        <%= number_with_precision(t['bet_value']*t['discount']/100, precision: 2, delimiter: ',') %>
+      </td>
+      <td>
+        <%= number_with_precision(t['status'] == 'ถูก' ? t['paid'] : '', precision: 2, delimiter: ',') %>
+      </td>
+      <td>
+        <%= number_with_precision(t['paid'] - t['bet_value'] + t['bet_value']*t['discount']/100, precision: 2, delimiter: ',') %>
+      </td>
+      <td style="display:none;">
+        <%= number_with_precision(t['money720808'], precision: 2, delimiter: ',') %>
+      </td>
+      <td style="display:none;">
+        <%= number_with_precision(t['money720808']-(1-t['discount']/100)*t['bet_value'], precision: 2, delimiter: ',') %>
+      </td>
+      <td>
+        <%= t['status'] %>
+      </td>
+      <td>
+        <%= t['_id'].to_str.last(6) %>
+      </td>
+    </tr>
+
+    <% end %>
+
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><strong>รวม</strong></td>
+      <td><strong><%= number_with_precision(@bet_value_sum, precision: 2, delimiter: ',') %></strong></td>
+      <td><strong><%= number_with_precision(@bet_discount_sum, precision: 2, delimiter: ',') %></strong></td>
+      <td><strong><%= number_with_precision(@bet_win_sum, precision: 2, delimiter: ',') %></strong></td>
+      <td><strong><%= number_with_precision(@bet_net_sum, precision: 2, delimiter: ',') %></strong></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <th>ลำดับ</th>
+      <th>วันที่</th>
+      <th>หวย</th>
+      <th>งวดวันที่</th>
+      <th>ประเภท</th>
+      <th>เลขที่แทง</th>
+      <th>แต้มต่อ</th>
+      <th>ยอดแทง</th>
+      <th>ส่วนลด</th>
+      <th>ยอดได้</th>
+      <th>สุทธิ</th>
+      <th style="display:none;">ยอดเงินคงเหลือ(ก่อนแทง)</th>
+      <th style="display:none;">ยอดเงินคงเหลือ(หลังแทง, ก่อนออกผลรางวัล)</th>
+      <th>สถานะ</th>
+      <th>ไอดีการแทง</th>
+    </tr>
+    </tr>
+  </tfoot>
+</table>

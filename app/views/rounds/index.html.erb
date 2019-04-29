@@ -1,0 +1,63 @@
+<main class="main-wrapper clearfix">
+
+  <!-- Page Title Area -->
+  <div class="row page-title clearfix">
+    <div class="page-title-left">
+      <h5 class="mr-0 mr-r-5">รอบหวย</h5>
+
+    </div>
+    <!-- /.page-title-left -->
+    <div class="page-title-right d-inline-flex">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="<%= root_path %>">หน้าหลัก</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a href="<%= admin_index_path %>">แอดมิน</a>
+        </li>
+        <li class="breadcrumb-item active">รอบหวย</li>
+      </ol>
+    </div>
+    <!-- /.page-title-right -->
+  </div>
+  <!-- /.page-title -->
+
+  <div class="widget-list">
+    <div class="row mr-b-0">
+      <div class="col-md-12">
+        <div class="widget-bg">
+          <div class="widget-body clearfix">
+            <table id="round_all" class="table-sm table-striped table-responsive" data-toggle="datatables">
+              <thead>
+                <tr>
+                  <th>สร้างวันที่</th>
+                  <th>ประเภทหวย</th>
+                  <th>งวดวันที่</th>
+                  <th>เวลาหยุดรับแทง</th>
+                  <th>สถานะ</th>
+                  <th></th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <% @rounds.each do |round| %>
+                <tr>
+                  <td><%= round['created_at'] %></td>
+                  <td><%= round['product'] %></td>
+                  <td><%= round['result_date'] %></td>
+                  <td><%= round['result_time'] %></td>
+                  <td><%= round['status'] == 'open' ? 'เปิดรับแทง' : (round['status'] == 'close' ? 'ปิดรับแทง' : 'ออกผลรางวัลแล้ว') %></td>
+                  <td><%= link_to 'สรุป', round_path(round) %> | <%= link_to 'แก้ไข', edit_round_path(round) %></td>
+                </tr>
+                <% end %>
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script src="<%= root_url%>assets/js/admin/rounds_index.js"></script>

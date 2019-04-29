@@ -1,0 +1,30 @@
+<h5 class="text-center">กรุณาเลือกประเภทการแทง</h5>
+
+<div class="row mr-b-10">
+  <div class="col-6">
+    <button id="b21" onclick="addBetType('b21');" class="btn btn-block btn-outline-default btn-responsive btn-default">สองตัวบน (<%= number_with_precision( @round[0]['payout']['b21']['odd'], precision: 0 ) %>)</button>
+  </div>
+  <div class="col-6">
+    <button id="b22" onclick="addBetType('b22');"  class="btn btn-block btn-outline-default btn-responsive btn-default">สองตัวล่าง (<%= number_with_precision( @round[0]['payout']['b22']['odd'], precision: 0 ) %>)</button>
+  </div>
+</div>
+
+<div class="tabs">
+
+  <!-- /.nav-tabs -->
+  <div id="2digits"  style="display:none">
+
+
+    <% (0..9).each do |r| %>
+    <div class="row">
+      <% (0..9).each do |c| %>
+      <% n = r*10 + c %>
+      <% num = '%02i' % n %>
+      <div class="col-md-110 col-xs-15 pd-lr-5 pd-b-5">
+        <button onclick="addNumber('<%=num%>', 2);" class="btn btn-block btn-outline-default pd-lr-0" id="<%= num %>"><%= num %></button>
+      </div>
+      <% end %>
+    </div>
+    <% end %>
+  </div>
+</div>

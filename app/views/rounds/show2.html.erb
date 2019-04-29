@@ -1,0 +1,273 @@
+<script>
+  var transactions = "<%= @transactions.to_json.gsub("money720808", "money") %>";
+  transactions = JSON.parse(transactions.replace(/&quot;/g, '\"'));
+</script>
+
+<main class="main-wrapper clearfix">
+  <!-- Page Title Area -->
+   <div class="row page-title clearfix">
+       <div class="page-title-left">
+           <h5 class="mr-0 mr-r-5">เติมเงิน</h5>
+
+       </div>
+       <!-- /.page-title-left -->
+       <div class="page-title-right d-inline-flex">
+           <ol class="breadcrumb">
+
+               <li class="breadcrumb-item">
+                 <a href="<%= root_path %>">หน้าหลัก</a>
+               </li>
+               <li class="breadcrumb-item">
+                 <a href="<%= admin_index_path %>">แอดมิน</a>
+               </li>
+               <li class="breadcrumb-item">
+                 <a href="<%= rounds_path %>">รอบหวย</a>
+               </li>
+
+               <li class="breadcrumb-item active">สรุป</li>
+           </ol>
+       </div>
+       <!-- /.page-title-right -->
+   </div>
+   <!-- /.page-title -->
+
+  <div class="widget-list">
+    <div class="row mr-b-0">
+      <div class="col-md-12">
+        <div class="widget-bg">
+          <div class="widget-body clearfix">
+
+            <div class="tabs">
+              <ul class="nav nav-tabs nav-justified">
+                <li class="nav-item">
+                  <a class="nav-link active" href="#all" data-toggle="tab" aria-expanded="true">รายการแทงทั้งหมด</a>
+                </li>
+                <li class="nav-item" aria-expanded="false">
+                  <a class="nav-link" href="#3digits" data-toggle="tab" aria-expanded="true">3 ตัว</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#2digits" data-toggle="tab" aria-expanded="true">2 ตัว</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#1digits" data-toggle="tab" aria-expanded="true">1 ตัว</a>
+                </li>
+              </ul>
+              <!-- /.nav-tabs -->
+              <div class="tab-content">
+                <h3><%=@round.product%> - <%=@round.result_date%> (<%=@round.status%>)</h3>
+                <div class="tab-pane active" id="all" aria-expanded="false">
+                  <hr />
+                  <h5>ตารางสรุป</h5>
+                  <table id="transaction_summary" class="table table-sm table-striped table-responsive">
+                    <thead>
+                      <tr>
+                        <th>ประเภท</th>
+                        <th>จำนวนรายการ (รายการ)</th>
+                        <th>จำนวนคนแทง (คน)</th>
+                        <th>ยอดแทง (บาท)</th>
+                        <th>ส่วนลด (บาท)</th>
+                        <th>ยอดจ่าย (บาท)</th>
+                        <th>กำไร/ขาดทุน (บาท)</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      <tr>
+                        <td>รวมทั้งหมด</td>
+                        <td><%= @summary['total']['count'] %></td>
+                        <td><%= [@summary['total']['user'], 0].max %></td>
+                        <td><%= number_with_precision(@summary['total']['bet'], precision: 2, delimiter: ',') %></td>
+                        <td><%= number_with_precision(@summary['total']['discount'], precision: 2, delimiter: ',') %></td>
+                        <td><%= number_with_precision(@summary['total']['paid'], precision: 2, delimiter: ',') %></td>
+                        <td><%= number_with_precision(@summary['total']['pnl'], precision: 2, delimiter: ',') %></td>
+                      </tr>
+                      <% @bet_type_list.each do |k, v| %>
+
+                      <tr>
+                        <td><%= v %></td>
+                        <td><%= @summary[k]['count'] %></td>
+                        <td><%= [@summary['total']['user'], 0].max %></td>
+                        <td><%= number_with_precision(@summary[k]['bet'], precision: 2, delimiter: ',') %></td>
+                        <td><%= number_with_precision(@summary[k]['discount'], precision: 2, delimiter: ',') %></td>
+                        <td><%= number_with_precision(@summary[k]['paid'], precision: 2, delimiter: ',') %></td>
+                        <td><%= number_with_precision(@summary[k]['pnl'], precision: 2, delimiter: ',') %></td>
+                      </tr>
+
+                      <% end %>
+                    </tbody>
+
+                  </table>
+
+
+                  <hr />
+
+
+                  <h5>รายการแทงทั้งหมด</h5>
+                  <table id="transaction_table" class="table-sm table-striped table-responsive" data-toggle="datatables">
+                    <thead>
+                      <tr>
+                        <th>ลำดับ</th>
+                        <th>วันที่</th>
+                        <th>ผู้ใช้งาน</th>
+                        <th>ประเภท</th>
+                        <th>เลข</th>
+                        <th>แต้มต่อ</th>
+                        <th>จำนวนเงิน</th>
+                        <th>ส่วนลด</th>
+                        <th>ยอดจ่าย</th>
+                        <th>ยอดเงินคงเหลือ(ก่อนแทง)</th>
+                        <th>ยอดเงินคงเหลือ(หลังแทง, ก่อนออกผลรางวัล)</th>
+                        <th>สถานะ</th>
+                        <th>ไอดีการแทง</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+
+                      <% @transactions.each_with_index do |r, index| %>
+                      <% cWin = r['status'] == 'ถูก' ? 'table-success' : '' %>
+                      <tr class="<%= cWin %>">
+                        <td><%= (index+1) %></td>
+                        <td><span id="transaction_table_<%= index %>_created_at"></span></td>
+                        <td><%= User.find(r['username']).username %></td>
+                        <td><%= @bet_type['bet_type'][r['bet_type']]['name'] %></td>
+                        <td><%= r['number'] %></td>
+                        <td><%= r['odd'] %></td>
+                        <td><%= number_with_precision(r['bet_value'], precision: 2, delimiter: ',') %></td>
+                        <td><%= number_with_precision(r['bet_value']*r['discount']/100, precision: 2, delimiter: ',') %></td>
+                        <td><%= number_with_precision(r['paid'], precision: 2, delimiter: ',') %></td>
+                        <td><%= number_with_precision(r['money720808'], precision: 2, delimiter: ',') %></td>
+                        <td><%= number_with_precision(r['money720808']-(1-r['discount']/100)*r['bet_value'], precision: 2, delimiter: ',') %></td>
+                        <td><%= r['status'] %></td>
+                        <td><%= r['_id'].to_str.last(6) %></td>
+                      </tr>
+                      <% end %>
+                    </tbody>
+                    <tfoot>
+                      <tr>
+                        <th>ลำดับ</th>
+                        <th>วันที่</th>
+                        <th>ผู้ใช้งาน</th>
+                        <th>ประเภท</th>
+                        <th>เลข</th>
+                        <th>แต้มต่อ</th>
+                        <th>จำนวนเงิน</th>
+                        <th>ส่วนลด</th>
+                        <th>ยอดจ่าย</th>
+                        <th>ยอดเงินคงเหลือ(ก่อนแทง)</th>
+                        <th>ยอดเงินคงเหลือ(หลังแทง, ก่อนออกผลรางวัล)</th>
+                        <th>สถานะ</th>
+                        <th>ไอดีการแทง</th>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+                <div class="tab-pane" id="3digits" aria-expanded="false">
+
+                  <h5>3 หลัก</h5>
+                  <table id="3digits_table" class="table-sm table-striped table-responsive" data-toggle="datatables">
+                    <thead>
+                      <tr>
+                        <th>เลข</th>
+                        <th>บน</th>
+                        <th>โต๊ด</th>
+                        <th>ล่าง</th>
+                        <th>หน้า</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+
+                      <% (0..999).each do |index| %>
+                      <% number = "%.3d" % index %>
+
+                      <tr>
+                        <td><%= number %></td>
+                        <td>
+                          <%= Transaction.where(round: @round.id, number: number, bet_type: 'b31').sum(:bet_value) %>
+                        </td>
+                        <td>
+                          <%= Transaction.where(round: @round.id, number: number, bet_type: 'b32').sum(:bet_value) %>
+                        </td>
+                        <td>
+                          <%= Transaction.where(round: @round.id, number: number, bet_type: 'b33').sum(:bet_value) %>
+                        </td>
+                        <td>
+                          <%= Transaction.where(round: @round.id, number: number, bet_type: 'b34').sum(:bet_value) %>
+                        </td>
+
+                      </tr>
+                      <% end %>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="tab-pane" id="2digits" aria-expanded="false">
+                  <h5>2 หลัก</h5>
+                  <table id="2digits_table" class="table-sm table-striped table-responsive" data-toggle="datatables">
+                    <thead>
+                      <tr>
+                        <th>เลข</th>
+                        <th>บน</th>
+                        <th>ล่าง</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+
+                      <% (0..99).each do |index| %>
+                      <% number = "%.2d" % index %>
+
+                      <tr>
+                        <td><%= number %></td>
+                        <td>
+                          <%= Transaction.where(round: @round.id, number: number, bet_type: 'b21').sum(:bet_value) %>
+                        </td>
+                        <td>
+                          <%= Transaction.where(round: @round.id, number: number, bet_type: 'b22').sum(:bet_value) %>
+                        </td>
+
+                      </tr>
+                      <% end %>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="tab-pane" id="1digits" aria-expanded="false">
+                  <h5>1 หลัก</h5>
+                  <table id="1digits_table" class="table-sm table-striped table-responsive" data-toggle="datatables">
+                    <thead>
+                      <tr>
+                        <th>เลข</th>
+                        <th>บน</th>
+                        <th>ล่าง</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+
+                      <% (0..9).each do |index| %>
+                      <% number = index %>
+
+                      <tr>
+                        <td><%= number %></td>
+                        <td>
+                          <%= Transaction.where(round: @round.id, number: number, bet_type: 'b11').sum(:bet_value) %>
+                        </td>
+                        <td>
+                          <%= Transaction.where(round: @round.id, number: number, bet_type: 'b12').sum(:bet_value) %>
+                        </td>
+
+                      </tr>
+                      <% end %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <!-- /.tab-content -->
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+
+<script src="<%= root_url%>assets/js/admin/rounds_show.js"></script>

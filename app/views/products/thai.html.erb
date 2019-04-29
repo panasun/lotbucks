@@ -1,0 +1,283 @@
+<main class="main-wrapper clearfix">
+  <!-- Page Title Area -->
+  <div class="row page-title clearfix">
+    <div class="page-title-left">
+      <h5 class="mr-0 mr-r-5">หวยไทย</h5>
+
+    </div>
+    <!-- /.page-title-left -->
+    <div class="page-title-right d-inline-flex">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="<%= root_path %>">หน้าหลัก</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a href="<%= products_index_path %>">แทงหวย</a>
+        </li>
+        <li class="breadcrumb-item active">หวยไทย</li>
+      </ol>
+    </div>
+    <!-- /.page-title-right -->
+  </div>
+  <!-- /.page-title -->
+
+  <div class="widget-list">
+    <div class="row mr-b-0">
+      <div class="col-md-12">
+        <div class="widget-bg">
+          <div class="widget-body clearfix">
+            <h4>หวยไทย
+              <small>งวดวันที่
+                <span id="date"></span>
+              </small>
+              <input type="hidden" id="round_date" value="<%= @round.result_date %>">
+            </h4>
+            <div id="parameters">
+              <input id="round_id" value="<%= @round._id %>" type="hidden">
+              <script>
+                var payout = "<%= @payout.to_json %>";
+                payout = JSON.parse(payout.replace(/&quot;/g, '\"'));
+
+                var limit = "<%= @round['limit'].to_json %>";
+                limit = JSON.parse(limit.replace(/&quot;/g, '\"'));
+
+                console.log(limit);
+              </script>
+            </div>
+            <div class="tabs tabs-bordered">
+              <ul class="nav nav-tabs nav-justified">
+                <li class="nav-item mx-auto">
+                  <a id="tab-rule" class="nav-link active" href="#panel-rule" data-toggle="tab" aria-expanded="true">กติกา</a>
+                </li>
+                <li class="nav-item mx-auto">
+                  <a id="tab-3digits" class="nav-link" href="#panel-3digits" data-toggle="tab" aria-expanded="false">แทงหวย</a>
+                </li>
+              </ul>
+              <!-- /.nav-tabs -->
+
+              <!-- /.tab-content -->
+            </div>
+            <!-- /.tabs -->
+          </div>
+        </div>
+        <!-- /.widget-bg -->
+      </div>
+
+    </div>
+    <!-- /.row -->
+  </div>
+
+  <div class="widget-list" id="widget-list">
+    <div class="row">
+      <div class="col-md-12 col-sm-12 widget-holder">
+        <div class="widget-bg">
+          <div class="widget-body clearfix">
+            <div id="panel" class="tab-content">
+              <div class="tab-pane active" id="panel-rule" aria-expanded="true">
+                <div>
+                  <strong>หวยไทย Lot1688.com</strong><br/>
+                  1. ระบบเปิดรับแทงทุกวัน ออนไลน์ 24 ชม. ท่านสามารถเดิมพันล่วงหน้าได้เลยค่ะ<br/>
+                  2. ระบบ ปิดรับแทงเวลา 15:20 น. หากมีการเปลี่ยนแปลงทางบริษัทจะแจ้งให้ทราบล่วงหน้า 1 วันค่ะ<br/>
+                  3. ระบบ Lot1688.com ให้ราคาจ่ายที่สูงกว่าใคร จ่ายจริง จ่ายเร็ว ทุกงวด ปลอดภัย 100%<br/>
+                  4. ระบบ สามารถเก็บยอดแทงสะสมเพื่อรับอัตราจ่ายและส่วนลดที่สูงขึ้นตามลำดับ VIP<br/>
+                  <br/>
+                  เลขอั้น คือเลขที่มีการสั่งซื้อเข้ามาเป็นจำนวนมาก ทำให้เจ้ามือปิดรับเลขตัวนั้นๆ<br/>
+                  ทาง Lot1688 หากมีเลขอั้นจะแจ้งที่หน้านี้ ในบางกรณีที่มีลูกค้าแทงมาเป็นจำนวนมาก<br/>
+                  ให้ท่านตรวจสอบรายการแทงทุกครั้งว่าระบบรับแทงหรือไม่<br/>
+                  <br/>
+
+                  <hr/>
+                  <h5>ตารางการจ่าย</h5>
+                  <table class="table-resize table-striped">
+                    <thead>
+                      <tr class="thead-inverse bg-primary">
+                        <th width="10%">ประเภท</th>
+                        <th width="10%">จ่าย</th>
+                        <th width="10%">ส่วนลด (%)</th>
+                        <th width="10%">ยอดแทงต่ำสุด</th>
+                        <th width="10%">ยอดแทงสูงสุด</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+
+                      <% @bet_code.each do |b| %>
+                      <tr>
+                        <td>
+                          <%= @bet_type['bet_type'][b]['name'] %>
+                        </td>
+                        <td>
+                          <%= @payout[b]['odd'] %>
+                        </td>
+                        <td>
+                          <%= @payout[b]['discount'] %>
+                        </td>
+                        <td>
+                          <%= @payout[b]['minbet'] %>
+                        </td>
+                        <td>
+                          <%= @payout[b]['maxbet'] %>
+                        </td>
+
+                      </tr>
+                      <% end %>
+
+                    </tbody>
+
+                  </table>
+                  <hr/>
+                  <h5>เลขอั้น</h5>
+                  <table class="table-resize table-striped">
+                    <thead>
+                      <tr class="thead-inverse bg-primary">
+                        <th width="10%">ประเภท</th>
+                        <th width="10%">เลข</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+
+                      <% @round['limit'].each do |b| %>
+                      <tr>
+                        <td>
+                          <%= @bet_type['bet_type'][b['bet_type']]['name'] %>
+                        </td>
+                        <td>
+                          <%= b['number'] %>
+                        </td>
+
+                      </tr>
+                      <% end %>
+
+                    </tbody>
+
+                  </table>
+
+                </div>
+
+              </div>
+              <div class="tab-pane" id="panel-3digits" aria-expanded="false">
+
+                <h5>ตาราง</h5>
+                <div id="bet_list">
+                  <div class="widget-body clearfix">
+                    <form class="form-material">
+                      <%= csrf_meta_tag %>
+                      <div id="bet_list">
+                        <h6 class="box-title"></h6>
+                        <table id="bet_list_table" class="table table-bet-list">
+                          <thead>
+                            <tr class="bg-primary text-inverse">
+                              <th style="width:15%">เลข</th>
+                              <th style="width:18%">บน</th>
+                              <th style="width:18%">ล่าง</th>
+                              <th style="width:18%">โต๊ด</th>
+                              <th style="width:18%">หน้า</th>
+
+                            </tr>
+
+                          </thead>
+
+                          <% (1..100).each do |row_id| %>
+                          <% isHidden = row_id > 10 ? 'display:none;' : '' %>
+                          <tr id="row_<%= row_id %>_number" style="<%= isHidden %>">
+                            <td>
+                              <input class="form-control" type="text" id="<%= row_id %>_number" value="">
+                            </td>
+                            <td>
+                              <input class="form-control btn-disabled" type="text" id="<%= row_id %>_bet1" value="" disabled="true">
+                            </td>
+                            <td>
+                              <input class="form-control btn-disabled" type="text" id="<%= row_id %>_bet2" value="" disabled="true">
+                            </td>
+                            <td>
+                              <input class="form-control btn-disabled" type="text" id="<%= row_id %>_bet3" value="" disabled="true">
+                            </td>
+                            <td>
+                              <input class="form-control btn-disabled" type="text" id="<%= row_id %>_bet4" value="" disabled="true">
+                            </td>
+                          </tr>
+                          <% end %>
+                          <tbody></tbody>
+                        </table>
+
+                      </div>
+
+                    </form>
+
+                    <button id="add_row" class="btn btn-block">เพิ่มบรรทัด</button>
+                    <hr/>
+                    <div id="bet_sum">
+                      <h5>ยอดรวม: 0 บาท</h5>
+                    </div>
+                    <div id="user_balance">
+                      <small>จำนวนเงินในบัญชีของคุณ:
+                        <%= number_to_currency( current_user.money720808, unit: "฿", precision: 2 ) %>
+                        บาท</small>
+                    </div>
+                    <div class="checkbox checkbox-primary">
+                      <label class="">
+                        <input type="checkbox" id="accept-confirm">
+                        <span class="label-text">
+                          <small>ฉันตรวจสอบรายการและยอมรับเงื่อนไขแล้ว</small>
+                        </span>
+                      </label>
+                    </div>
+                    <button id="submit_bet" class="btn btn-block btn-rounded btn-color-scheme">ยืนยันการแทง</button>
+                    <div class="text-center">
+                      <small><%= link_to 'เงื่อนไขและข้อตกลงในการใช้บริการ' %></small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <!-- /.tabs -->
+          </div>
+          <!-- /.widget-body -->
+        </div>
+        <!-- /.widget-bg -->
+      </div>
+
+      <div class="modal modal-color-scheme fade bs-modal-lg-color-scheme" id="transactionSummary" role="dialog" aria-labelledby="transactionSummary" aria-hidden="true" style="display: none">
+        <div class="modal-dialog modal-lg bs-modal-lg-color-scheme">
+          <div class="modal-content">
+            <div class="modal-header text-inverse">
+              <button type="button" class="close" onclick="location.reload();" aria-hidden="true">×</button>
+              <h5 class="modal-title" id="myLargeModalLabel">ได้รับรายการแทงเรียบร้อย</h5>
+            </div>
+            <div class="modal-body">
+              <div class="swal2-icon swal2-success swal2-animate-success-icon" style="display: block;">
+                <div class="swal2-success-circular-line-left" style="background: rgb(255, 255, 255);"></div>
+                <span class="swal2-success-line-tip swal2-animate-success-line-tip"></span>
+                <span class="swal2-success-line-long swal2-animate-success-line-long"></span>
+                <div class="swal2-success-ring"></div>
+                <div class="swal2-success-fix" style="background: rgb(255, 255, 255);"></div>
+                <div class="swal2-success-circular-line-right" style="background: rgb(255, 255, 255);"></div>
+              </div>
+              <div class="text-center">
+                <p>
+                  <strong>สรุปรายการแทงหวยไทย งวดวันที่
+                    <span id="date2"></span>
+                  </strong>
+                </p>
+              </div>
+              <div id="transactionSummarycontent"></div>
+            </div>
+            <div class="modal-footer">
+
+              <button type="button" class="btn btn-danger btn-rounded ripple text-left" data-dismiss="modal" onclick="location.reload();">ปิดหน้าต่าง</button>
+              <a href="<%= transactions_path %>" class="btn btn-info btn-rounded ripple text-left">ดูรายการแทงทั้งหมด</a>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal -->
+
+    </div>
+    <!-- /.row -->
+  </div>
+
+</main>
+
+<script type='text/javascript'  src="<%= root_url%>assets/js/products_thai_table.js"></script>

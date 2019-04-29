@@ -1,0 +1,106 @@
+<main class="main-wrapper clearfix">
+
+  <div class="widget-list">
+    <div class="row">
+      <div class="col-md-3 widget-holder"></div>
+      <div class="col-md-6 widget-holder">
+        <div class="widget-bg">
+          <div class="widget-body clearfix">
+            <h3 class="box-title mr-b-0">ลงทะเบียนเพื่อสมัครสมาชิก</h3>
+            <p>ในการเข้าสู่ระบบจะใช้เบอร์โทรศัพท์แทนรหัสสมาชิก และเพื่อความปลอดภัยเมื่อสมัครสมาชิกแล้วจะไม่สามารถแก้ไขชื่อ-นามสกุล และหมายเลขบัญชีธนาคารที่รับเงินได้ ดังนั้นกรุณาตรวจสอบข้อมูลอย่างละเอียด ก่อนกดปุ่มยืนยันการสมัคร</p>
+            <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+            <%= devise_error_messages! %>
+
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="l10">เบอร์โทรศัพท์ :</label>
+              <div class="col-md-9">
+                <div class="input-group">
+                  <%= f.telephone_field :username, autofocus: true, placeholder: "0812345678", class:"form-control" %>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="l10">ชื่อ-นามสกุล :</label>
+              <div class="col-md-9">
+                <div class="input-group">
+                  <%= f.text_field :name, autofocus: true, placeholder: "นายรวย ทุกงวด", class:"form-control" %>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="l13">ธนาคารที่รับเงิน :</label>
+              <div class="col-md-9">
+                <%= select_tag("user[bank_name]", options_for_select([ ["ธนาคารกรุงเทพ (BBL)", "ธนาคารกรุงเทพ"], ["ธนาคารกสิกรไทย (KBANK)", "ธนาคารกสิกรไทย"], ["ธนาคารกรุงไทย (KTB)", "ธนาคารกรุงไทย"], ["ธนาคารทหารไทย (TMB)", "ธนาคารทหารไทย"],
+                ["ธนาคารไทยพาณิชย์ (SCB)", "ธนาคารไทยพาณิชย์"], ["ธนาคารกรุงศรีอยุธยา (BAY)", "ธนาคารกรุงศรีอยุธยา"], ["ธนาคารเกียรตินาคิน (KKB)", "ธนาคารเกียรตินาคิน"], ["ธนาคารออมสิน (GSB)", "ธนาคารออมสิน"],
+                ["ธนาคารเพื่อการเกษตรและสหกรณ์การเกษตร ธกส. (BAAC)", "ธนาคารเพื่อการเกษตรและสหกรณ์การเกษตร"], ]), class:"form-control") %>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="l10">หมายเลขบัญชีธนาคาร</label>
+              <div class="col-md-9">
+                <%= f.text_field :bank_id, autofocus: true, placeholder: "xxxxxxxxxx", class:"form-control" %>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="l10">ไลน์ไอดี :</label>
+              <div class="col-md-9">
+                <%= f.text_field :line_id, autofocus: true, placeholder: @user.line_id, class:"form-control" %>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="l0">รหัสผ่าน :</label>
+              <div class="col-md-9">
+                <%= f.password_field :password, autocomplete: "off", placeholder: "รหัสผ่าน (ขั้นต่ำ 6 ตัว)", class: "form-control" %>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="l0">ยืนยันรหัสผ่าน :</label>
+              <div class="col-md-9">
+                <%= f.password_field :password_confirmation, autocomplete: "off", placeholder: "ยืนยันรหัสผ่าน", class: "form-control" %>
+              </div>
+            </div>
+
+
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="l0"></label>
+              <div class="col-md-9">
+                <div class="checkbox checkbox-primary">
+                  <label class="">
+                    <input type="checkbox" id="accept-confirm">
+                    <span class="label-text">
+                      <small>ฉันตรวจสอบรายการและยอมรับเงื่อนไขการให้บริการ</small>
+                    </span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+
+
+
+            <div class="form-actions">
+              <div class="form-group row">
+                <div class="col-md-9 ml-md-auto btn-list">
+                  <%= f.submit "ยืนยัน", class: "btn btn-primary btn-block btn-rounded"%>
+
+                  <div class="text-center">
+                    <small><%= link_to 'เงื่อนไขและข้อตกลงในการใช้บริการ' %></small>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+
+            <% end %>
+          </div>
+          <!-- /.widget-body -->
+        </div>
+        <!-- /.widget-bg -->
+      </div>
+      <!-- /.widget-holder -->
+
+    </div>
+    <!-- /.row -->
+  </div>
+
+</main>

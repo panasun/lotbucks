@@ -1,0 +1,71 @@
+<script>
+  var requests = "<%= @requests.to_json %>";
+  requests = JSON.parse(requests.replace(/&quot;/g, '\"'));
+</script>
+
+<main class="main-wrapper clearfix">
+  <!-- Page Title Area -->
+   <div class="row page-title clearfix">
+       <div class="page-title-left">
+           <h5 class="mr-0 mr-r-5">เติมเงิน</h5>
+
+       </div>
+       <!-- /.page-title-left -->
+       <div class="page-title-right d-inline-flex">
+           <ol class="breadcrumb">
+               <li class="breadcrumb-item"><a href="<%= root_path %>">หน้าหลัก</a>
+               </li>
+               <li class="breadcrumb-item active">ฝาก-ถอน</li>
+           </ol>
+       </div>
+       <!-- /.page-title-right -->
+   </div>
+   <!-- /.page-title -->
+
+  <div class="widget-list">
+    <div class="row">
+      <div class="col-md-3 widget-holder"></div>
+      <div class="col-md-6  widget-holder">
+        <div class="widget-bg">
+          <div class="widget-body clearfix">
+            <div class="tabs">
+              <ul class="nav nav-tabs nav-justified">
+                <li class="nav-item">
+                  <a class="nav-link active" href="#deposit" data-toggle="tab" aria-expanded="true">ฝากเงิน</a>
+                </li>
+                <li class="nav-item" aria-expanded="false">
+                  <a class="nav-link" href="#withdraw" data-toggle="tab" aria-expanded="true">ถอนเงิน</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#status" data-toggle="tab" aria-expanded="true">รายการฝาก-ถอน</a>
+                </li>
+              </ul>
+              <!-- /.nav-tabs -->
+              <div class="tab-content">
+                <%= csrf_meta_tag %>
+                <div class="tab-pane active" id="deposit" aria-expanded="false">
+                  <p>เพื่อความรวดเร็ว และสะดวกต่อการตรวจสอบของเจ้าหน้าที่ กรุณาโอนเงินมาเป็นเศษสตางค์ เช่น 1000.35 บาท</p>
+                  <%= render 'form_deposit', request: @request, :locals => {:current_user => current_user} %>
+                </div>
+                <div class="tab-pane" id="withdraw" aria-expanded="false">
+                  <%= render 'form_withdraw', request: @request, :locals => {:current_user => current_user} %>
+                </div>
+                <div class="tab-pane" id="status" aria-expanded="false">
+                  <%= render 'form_transaction', request: @request, :locals => {:current_user => current_user, :requests => @requests} %>
+                </div>
+              </div>
+              <!-- /.tab-content -->
+            </div>
+            <!-- /.tabs -->
+          </div>
+          <!-- /.widget-body -->
+        </div>
+        <!-- /.widget-bg -->
+      </div>
+    </div>
+    <!-- /.row -->
+  </div>
+
+</main>
+
+<script src="<%= root_url%>assets/js/requests.js"></script>

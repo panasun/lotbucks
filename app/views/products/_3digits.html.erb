@@ -1,0 +1,56 @@
+<h5 class="text-center">กรุณาเลือกประเภทการแทง</h5>
+
+<div class="row mr-b-10">
+  <div class="col-6">
+    <button id="b31" onclick="addBetType('b31');" class="btn btn-block btn-outline-default btn-responsive btn-default">สามตัวบน (<%= number_with_precision( @round[0]['payout']['b31']['odd'], precision: 0 ) %>)</button>
+  </div>
+  <div class="col-6">
+    <button id="b32" onclick="addBetType('b32');"  class="btn btn-block btn-outline-default btn-responsive btn-default">สามตัวโต๊ด (<%= number_with_precision( @round[0]['payout']['b32']['odd'], precision: 0 ) %>)</button>
+  </div>
+</div>
+<div class="row mr-b-20">
+  <div class="col-6">
+    <button id="b33" onclick="addBetType('b33');" class="btn btn-block btn-outline-default btn-responsive btn-default">สามตัวล่าง (<%= number_with_precision( @round[0]['payout']['b33']['odd'], precision: 0 ) %>)</button>
+  </div>
+  <div class="col-6">
+    <button id="b34" onclick="addBetType('b34');"  class="btn btn-block btn-outline-default btn-responsive btn-default">สามตัวหน้า (<%= number_with_precision( @round[0]['payout']['b34']['odd'], precision: 0 ) %>)</button>
+  </div>
+</div>
+
+<div id="3digits" class="tabs" style="display:none">
+  <ul class="nav nav-tabs">
+    <% (0..9).each do |k| %>
+    <li class="nav-item tab-bet-panel">
+      <% if k != 0 %>
+      <a id="tab_3digits_<%= k %>" class="nav-link tab-bet-nav-link" href="#3digits_<%= k %>" data-toggle="tab" aria-expanded="false"><%= '%03i' % (k*100) %></a>
+    <% else %>
+      <a id="tab_3digits_<%= k %>" class="nav-link tab-bet-nav-link active" href="#3digits_<%= k %>" data-toggle="tab" aria-expanded="true"><%= '%03i' % (k*100) %></a>
+      <% end %>
+    </li>
+    <% end %>
+  </ul>
+  <!-- /.nav-tabs -->
+  <div  class="tab-content">
+
+    <% (0..9).each do |k| %>
+    <% if k != 0 %>
+    <div class="tab-pane" id="3digits_<%= k %>" aria-expanded="false">
+    <% else %>
+      <div class="tab-pane active" id="3digits_<%= k %>"  aria-expanded="true">
+        <% end %>
+        <% (0..9).each do |r| %>
+        <div class="row">
+          <% (0..9).each do |c| %>
+          <% n = k*100 + r*10 + c %>
+          <% num = '%03i' % n %>
+          <div class="col-md-110 col-xs-15 pd-lr-5 pd-b-5">
+            <button onclick="addNumber('<%=num%>', 3);" class="btn btn-block btn-outline-default pd-lr-0" id="<%= num %>"><%= num %></button>
+          </div>
+          <% end %>
+        </div>
+        <% end %>
+      </div>
+      <% end %>
+    </div>
+    <!-- /.tab-content -->
+  </div>
